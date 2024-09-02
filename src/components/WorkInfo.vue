@@ -1,9 +1,8 @@
 <script setup>
 // 引入图标
-import {Delete, Plus} from '@element-plus/icons-vue';
 import {ref, onMounted} from "vue";
+import locale from 'ant-design-vue/es/date-picker/locale/zh_CN';
 
-import locale from "element-plus/dist/locale/zh-cn.mjs"
 
 // 富文本编辑器配置
 import {
@@ -48,6 +47,7 @@ import {
 } from 'ckeditor5';
 import 'ckeditor5/ckeditor5.css';
 import translations from 'ckeditor5/translations/zh-cn.js';
+import {DeleteOutlined} from "@ant-design/icons-vue";
 
 const isLayoutReady = ref(false);
 let config = ref(null);
@@ -167,11 +167,14 @@ const rules = {
   gmt_start: [
     {required: true, message: '工作开始时间不能为空', trigger: 'blur'}
   ],
+  desc: [
+    {required: true, message: '请填写工作描述', trigger: 'blur'},
+    {min: 1, max: 512, message: '长度必须介于1和512之间', trigger: ['blur', 'change']},
+  ]
 };
 
 // 增加工作经验事件
 const addWorkInfo = () => {
-  console.info(formRefs.value);
   models.value.push({
     firm: "",
     title: "",
@@ -199,6 +202,7 @@ const validateForm = async () => {
   }
   return isValid;
 }
+
 // 暴露方法
 defineExpose({validateForm})
 </script>
@@ -207,76 +211,55 @@ defineExpose({validateForm})
 <template>
   <h4>告诉我您的工作经验</h4>
   <h6>在此部分中，列出您过去 10 年的相关工作经历以及日期。首先提及最近的工作经历。</h6>
-  <el-divider border-style="dashed"/>
-  <el-collapse accordion v-if="models.length>0">
-    <div v-for="(model, index) in models" :key="index">
-      <el-form :rules="rules" status-icon :model="model" ref="formRefs">
-        <el-collapse-item :name="index">
-          <template #title>
-            <div style="display: flex; justify-content: space-between; align-items: center;">
-              <span>{{ model.firm }}-{{ model.title }}</span>
-              <el-button @click="()=>{ delWorkInfo(index) }" :icon="Delete" text/>
-            </div>
-          </template>
-          <el-row>
-            <el-col :span="11">
-              <el-form-item label="公司名称" prop="firm">
-                <el-input placeholder="XXX科技有限公司" v-model="model.firm"></el-input>
-              </el-form-item>
-            </el-col>
-            <el-col :span="11" :offset="2">
-              <el-form-item label="职位" prop="title">
-                <el-input placeholder="首席执行官" v-model="model.title"></el-input>
-              </el-form-item>
-            </el-col>
-          </el-row>
-          <!--    工作时间 -->
-          <el-config-provider :locale="locale">
-            <el-row>
-              <el-col :span="11">
-                <el-form-item label="开始日期" prop="gmt_start">
-                  <el-date-picker
-                      v-model="model.gmt_start"
-                      type="date"
-                      aria-label="开始日期"
-                      placeholder="开始日期"
-                      style="width: 100%"
-                  />
-
-                </el-form-item>
-              </el-col>
-              <el-col :span="2" style="text-align: center">
-                -
-              </el-col>
-              <el-col :span="11">
-                <el-form-item>
-                  <el-date-picker
-                      v-model="model.gmt_end"
-                      aria-label="结束日期"
-                      placeholder="结束日期"
-                      style="width: 100%"
-                  />
-                </el-form-item>
-              </el-col>
-            </el-row>
-          </el-config-provider>
-          <el-form-item label="我还在这儿工作">
-            <el-checkbox value="online" name="type" v-model="model.is_doing">
-              目前仍然在职
-            </el-checkbox>
-          </el-form-item>
-          <el-form-item label="工作描述" prop="desc">
-            <div style="width:100%;">
-              <ckeditor v-if="isLayoutReady" v-model="model.desc" :editor="editor" :config="config"/>
-            </div>
-          </el-form-item>
-        </el-collapse-item>
-      </el-form>
-      <el-divider border-style="dashed"/>
-    </div>
-  </el-collapse>
-  <el-button type="primary" :icon="Plus" @click="addWorkInfo">添加工作经验</el-button>
-  <el-divider border-style="dashed"/>
+  <a-divider/>
+  <a-collapse accordion v-if="models.length>0">
+    <a-collapse-panel v-for="(model, index) in models" :key="index" :header="`${model.firm}-${model.title}`">
+      <template #extra>
+        <DeleteOutlined @click="() => delWorkInfo(index)"/>
+      </template>
+      <a-form :rules="rules" :model="model" ref="formRefs">
+        <a-row :span="24">
+          <a-col :span="11">
+            <a-form-item label="公司名称" name="firm">
+              <a-input placeholder="XXX科技有限公司" v-model:value="model.firm"></a-input>
+            </a-form-item>
+          </a-col>
+          <a-col :span="11" :offset="2">
+            <a-form-item label="职位" name="title">
+              <a-input placeholder="首席执行官" v-model:value="model.title"></a-input>
+            </a-form-item>
+          </a-col>
+        </a-row>
+        <!--    工作时间 -->
+        <a-row>
+          <a-col :span="11">
+            <a-form-item label="开始日期" prop="gmt_start">
+              <a-date-picker v-model:value="model.gmt_start" value-format="YYYY-MM-DD" :locale="locale"/>
+            </a-form-item>
+          </a-col>
+          <a-col :span="2" style="text-align: center">
+            -
+          </a-col>
+          <a-col :span="11">
+            <a-form-item label="结束日期" name="gmt_end">
+              <a-date-picker v-model:value="model.gmt_end" value-format="YYYY-MM-DD" :locale="locale"/>
+            </a-form-item>
+          </a-col>
+        </a-row>
+        <a-form-item label="我还在这儿工作" name="is_doing">
+          <a-checkbox value="true" name="type" v-model:value="model.is_doing">
+            目前仍然在职
+          </a-checkbox>
+        </a-form-item>
+        <a-form-item label="工作描述" name="desc">
+          <ckeditor v-if="isLayoutReady" v-model="model.desc" :editor="editor" :config="config"/>
+        </a-form-item>
+      </a-form>
+    </a-collapse-panel>
+  </a-collapse>
+  <a-divider/>
+  <a-button type="primary" @click="addWorkInfo">添加工作经验</a-button>
+  <a-divider/>
 
 </template>
 

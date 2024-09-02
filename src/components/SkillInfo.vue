@@ -1,8 +1,7 @@
 <script setup>
 import {reactive, ref} from "vue";
-import {Plus, Delete} from "@element-plus/icons-vue";
-
 import {v4 as uuidv4} from 'uuid';
+import {DeleteOutlined} from "@ant-design/icons-vue";
 
 const skillInfos = defineModel("skillInfos");
 const formRefs = ref([]);
@@ -53,14 +52,16 @@ const delSkillInfo = (index) => {
 const validateForm = async () => {
   let isValid = true;
   for (let index in formRefs.value) {
-    let isValidT = await formRefs.value[index].validate(((valid, fields) => {
-      console.info(fields);
-    }));
+    let isValidT = await formRefs.value[index].validate();
     if (!isValidT) {
       isValid = false;
     }
   }
   return isValid;
+  // return new Promise((resolve,reject) => {
+  //   let valid = formRefs.value[index].validate(((valid, fields)=> valid))
+  //   resolve(valid)
+  // })
 }
 
 // 暴露方法
@@ -70,36 +71,32 @@ defineExpose({validateForm})
 <template>
   <h2>告诉我们您的技能</h2>
   <h4>从你最有经验的开始</h4>
-  <el-divider border-style="dashed"/>
-  <el-collapse accordion v-if="skillInfos.length>0">
-    <div v-for="(skillInfo, index) in skillInfos" :key="skillInfo.skill_id">
-      <el-form ref="formRefs" :model="skillInfo" :rules="rules" status-icon>
-        <el-collapse-item :name="index">
-          <template #title>
-            <div style="display: flex; justify-content: space-between; align-items: center;">
-              <span>{{ skillInfo.skill }}-{{ skillInfo.percent }}</span>
-              <el-button @click="()=>{ delSkillInfo(index) }" :icon="Delete" text/>
-            </div>
-          </template>
-            <el-row>
-              <el-col :span="11">
-                <el-form-item label="技能" prop="skill">
-                  <el-input placeholder="在此处输入你的技能" v-model="skillInfo.skill"></el-input>
-                </el-form-item>
-              </el-col>
-              <el-col :span="11" :offset="2">
-                <el-form-item label="掌握程度" prop="percent" style="max-width: 20vw">
-                  <el-slider v-model="skillInfo.percent" :step="10" :marks="marks" show-stops/>
-                </el-form-item>
-              </el-col>
-            </el-row>
-        </el-collapse-item>
-        <el-divider border-style="dashed"/>
-      </el-form>
-    </div>
-  </el-collapse>
-  <el-button type="primary" :icon="Plus" @click="addSkillInfo">添加工作经验</el-button>
-  <el-divider border-style="dashed"/>
+  <a-divider/>
+  <a-collapse v-if="skillInfos.length>0">
+    <a-collapse-panel v-for="(skillInfo, index) in skillInfos" :key="index"
+                      :header="`${skillInfo.skill}-${skillInfo.percent}`">
+      <template #extra>
+        <DeleteOutlined @click="() => delSkillInfo(index)"/>
+      </template>
+      <a-form ref="formRefs" :model="skillInfo" :rules="rules">
+        <a-row :span="24">
+          <a-col :span="11">
+            <a-form-item label="技能" name="skill" has-feedback>
+              <a-input placeholder="在此处输入你的技能" v-model:value="skillInfo.skill"></a-input>
+            </a-form-item>
+          </a-col>
+          <a-col :span="11" :offset="2">
+            <a-form-item label="掌握程度" name="percent" has-feedback>
+              <a-slider v-model:value="skillInfo.percent" :step="10" :marks="marks" show-stops/>
+            </a-form-item>
+          </a-col>
+        </a-row>
+      </a-form>
+    </a-collapse-panel>
+  </a-collapse>
+  <a-divider/>
+  <a-button type="primary" @click="addSkillInfo">添加工作技能</a-button>
+  <a-divider/>
 </template>
 
 <style scoped>

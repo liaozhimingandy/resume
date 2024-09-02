@@ -1,7 +1,8 @@
 <script setup>
 import {reactive, ref, computed} from 'vue';
 
-import {Cellphone} from '@element-plus/icons-vue'
+import {PhoneOutlined, MailOutlined, UserOutlined} from '@ant-design/icons-vue';
+
 
 const provinces = reactive([{
   value: 'jiangxi', label: '江西省'
@@ -22,7 +23,7 @@ const model = defineModel("basicInfoData");
 // 校验规则
 const rules = {
   first_name: [
-    {required: true, message: '请填写姓', trigger:'blur'},
+    {required: true, message: '请填写姓', trigger: 'blur'},
     {min: 1, max: 16, message: '长度必须介于1和16之间', trigger: ['blur', 'change']},
   ],
   last_name: [
@@ -35,116 +36,117 @@ const rules = {
   ],
   tel_no: [
     {required: true, message: '请输入联系电话', trigger: 'blur'},
-    { pattern: /^1[3-9]\d{9}$/, message: '请输入有效的手机号码', trigger: 'blur' }
+    {pattern: /^1[3-9]\d{9}$/, message: '请输入有效的手机号码', trigger: 'blur'}
   ],
 };
+
 // 表单校验
-const validateForm = () => {
-    return new Promise((resolve, reject) => {
-      formRef.value.validate((valid) => {
-        if (valid) {
-          resolve(true);
-        } else {
-          reject(false);
-        }
-      });
-    });
-  };
+const validateForm = async () => {
+  try {
+    // 调用 validate 方法，该方法返回 Promise
+    await formRef.value.validate();
+    return true;
+    // 处理表单提交逻辑，例如发送表单数据到服务器
+  } catch (errors) {
+    return false;
+    // 处理表单校验失败的逻辑，例如显示错误信息给用户
+  }
+};
 
 // 暴露方法
 defineExpose({
-	validateForm
+  validateForm
 })
 </script>
 
 <template>
-  <el-form label-width="auto" :model="model" style="width: 45vw" :rules="rules" status-icon ref="formRef">
+  <a-form :model="model" style="width: 45vw" :rules="rules" ref="formRef">
     <h2>请填写你的基本信息</h2>
     <!--      姓名 -->
-    <el-form-item>
-      <el-col :span="11">
-        <el-form-item prop="fist_name">
-          <el-input
-              v-model="model.first_name"
+    <a-row :gutter="24">
+      <a-col :span="11">
+        <a-form-item name="first_name" has-feedback>
+          <a-input
+              v-model:value="model.first_name"
               size="large"
               placeholder="张"
           >
-            <template #prepend style="background-color: #535bf2">
-              姓
+            <template #addonBefore>
+              <UserOutlined/>
             </template>
-          </el-input>
-        </el-form-item>
-      </el-col>
-      <el-col :span="11" :offset="2">
-        <el-form-item prop="last_name">
-          <el-input
-              v-model="model.last_name"
+          </a-input>
+        </a-form-item>
+      </a-col>
+      <a-col :span="11" :offset="2">
+        <a-form-item has-feedback name="last_name">
+          <a-input
+              v-model:value="model.last_name"
               size="large"
               placeholder="三"
           >
-            <template #prepend style="background-color: #535bf2">
-              名
+            <template #addonBefore>
+              <UserOutlined/>
             </template>
-          </el-input>
-        </el-form-item>
-      </el-col>
-    </el-form-item>
+          </a-input>
+        </a-form-item>
+      </a-col>
+    </a-row>
     <!--      目前所在城市-->
-    <el-form-item>
-      <el-col :span="11">
-        <el-form-item prop="province">
-          <el-select v-model="model.province" placeholder="请选择省份" size="large">
-            <el-option
+    <a-row :span="24">
+      <a-col :span="11">
+        <a-form-item name="province">
+          <a-select v-model:value="model.province" placeholder="请选择省份" size="large">
+            <a-select-option
                 v-for="item in provinces"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value">
-            </el-option>
-          </el-select>
-        </el-form-item>
-      </el-col>
-      <el-col :span="11" :offset="2">
-        <el-form-item prop="city">
-          <el-select v-model="model.city" placeholder="请选择城市" v-if="model.province.length" size="large">
-            <el-option
+                :value="item.value"
+            >{{ item.label }}
+            </a-select-option>
+          </a-select>
+        </a-form-item>
+      </a-col>
+      <a-col :span="11" :offset="2">
+        <a-form-item name="city">
+          <a-select v-model:value="model.city" placeholder="请选择城市" v-if="model.province.length" size="large">
+            <a-select-option
                 v-for="item in cityOptions"
-                :key="item.value"
-                :label="item.label"
                 :value="item.value">
-            </el-option>
-          </el-select>
-        </el-form-item>
-      </el-col>
-    </el-form-item>
+              {{ item.label }}
+            </a-select-option>
+          </a-select>
+        </a-form-item>
+      </a-col>
+    </a-row>
     <!--  联系方式  -->
-    <el-form-item prop="联系方式">
+    <a-row :span="24">
       <!--      电话 -->
-      <el-col :span="8">
-        <el-form-item prop="tel_no">
-          <el-input
-              v-model="model.tel_no"
+      <a-col :span="8">
+        <a-form-item name="tel_no" has-feedback>
+          <a-input
+              v-model:value="model.tel_no"
               size="large"
               placeholder="12345678901"
-              :suffix-icon="Cellphone"
-          />
-        </el-form-item>
-      </el-col>
-
-      <el-col :span="15" :offset="1">
-        <el-form-item prop="email">
-          <el-input
-              v-model="model.email"
+          >
+            <template #addonBefore>
+              <PhoneOutlined/>
+            </template>
+          </a-input>
+        </a-form-item>
+      </a-col>
+      <a-col :span="15" :offset="1">
+        <a-form-item name="email" has-feedback>
+          <a-input
+              v-model:value="model.email"
               size="large"
               placeholder="例如 admin@qq.com"
           >
-            <template #prepend style="background-color: #535bf2">
-              邮箱
+            <template #addonBefore>
+              <MailOutlined/>
             </template>
-          </el-input>
-        </el-form-item>
-      </el-col>
-    </el-form-item>
-  </el-form>
+          </a-input>
+        </a-form-item>
+      </a-col>
+    </a-row>
+  </a-form>
 </template>
 
 <style scoped>

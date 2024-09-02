@@ -1,10 +1,12 @@
 <script setup>
 import {ref, onMounted} from 'vue';
 // 表单数据
-import {Delete, Plus} from "@element-plus/icons-vue";
+import {DeleteOutlined} from '@ant-design/icons-vue';
+import locale from 'ant-design-vue/es/date-picker/locale/zh_CN';
 
 const educations = defineModel("educationInfos");
 const formRefs = ref([]);
+const activeKey = ref(['0']);
 
 // 富文本编辑器配置
 import {
@@ -193,9 +195,7 @@ const delItem = (index) => {
 const validateForm = async () => {
   let isValid = true;
   for (let index in formRefs.value) {
-    let isValidT = await formRefs.value[index].validate(((valid, fields) => {
-      console.info(fields);
-    }));
+    let isValidT = await formRefs.value[index].validate();
     if (!isValidT) {
       isValid = false;
     }
@@ -209,68 +209,53 @@ defineExpose({validateForm})
 <template>
   <h2>增加您的教育信息</h2>
   <h4>首先输入你最后的文凭</h4>
-  <el-divider border-style="dashed"/>
-  <el-collapse accordion v-if="educations.length>0">
-    <div v-for="(education, index) in educations" :key="index">
-      <el-form :rules="rules" status-icon :model="education" ref="formRefs">
-        <el-collapse-item :name="index">
-          <template #title>
-            <div style="display: flex; justify-content: space-between; align-items: center;">
-              <span>{{ education.edu_unit }}-{{ education.gmt_edu_start }}</span>
-              <el-button @click="()=>{ delItem(index) }" :icon="Delete" text/>
-            </div>
-          </template>
-          <el-form-item>
+  <a-divider/>
+  <a-collapse v-if="educations.length>0" expand-icon-position="start" v-model:activeKey="activeKey">
+    <a-collapse-panel v-for="(education, index) in educations" :key="index"
+                      :header="`${education.edu_unit}-${education.gmt_edu_start}`"
+    >
+      <template #extra>
+        <DeleteOutlined @click="() => delItem(index)"/>
+      </template>
+      <a-form :rules="rules" :model="education" ref="formRefs">
+        <a-row :span="24">
+          <a-col :span="11">
+            <a-form-item label="学校/机构" name="edu_unit">
+              <a-input placeholder="在此处输入你的学校/机构" v-model:value="education.edu_unit"></a-input>
+            </a-form-item>
+          </a-col>
+          <a-col :span="11" :offset="2">
+            <a-form-item label="证书名称" name="certificate">
+              <a-input placeholder="在此处您获取的证书名称" v-model:value="education.certificate"></a-input>
+            </a-form-item>
+          </a-col>
+        </a-row>
+        <a-row>
             <el-col :span="11">
-              <el-form-item label="学校/机构" prop="edu_unit">
-                <el-input placeholder="在此处输入你的学校/机构" v-model="education.edu_unit"></el-input>
-              </el-form-item>
+              <a-form-item label="开始日期" name="gmt_edu_start">
+                <a-date-picker v-model:value="education.gmt_edu_start" value-format="YYYY-MM-DD" :locale="locale"/>
+              </a-form-item>
             </el-col>
-            <el-col :span="11" :offset="2">
-              <el-form-item label="证书名称" prop="certificate">
-                <el-input placeholder="在此处您获取的证书名称" v-model="education.certificate"></el-input>
+            <a-col :span="2" style="text-align: center">
+              -
+            </a-col>
+            <a-col :span="11">
+              <el-form-item label="结束日期">
+                <a-date-picker v-model:value="education.gmt_edu_end" value-format="YYYY-MM-DD" :locale="locale"/>
               </el-form-item>
-            </el-col>
-          </el-form-item>
-          <el-row>
-            <el-config-provider :locale="locale">
-              <el-col :span="11">
-                <el-form-item label="开始日期" prop="gmt_edu_start">
-                  <el-date-picker
-                      v-model="education.gmt_edu_start"
-                      type="date"
-                      style="width: 100%"
-                  />
-
-                </el-form-item>
-              </el-col>
-              <el-col :span="2" style="text-align: center">
-                -
-              </el-col>
-              <el-col :span="11">
-                <el-form-item label="结束日期">
-                  <el-date-picker
-                      v-model="education.gmt_edu_end"
-                      aria-label="结束日期"
-                      placeholder="结束日期"
-                      style="width: 100%"
-                  />
-                </el-form-item>
-              </el-col>
-            </el-config-provider>
-          </el-row>
-          <el-form-item label="教育描述" prop="desc">
-            <div style="width:100%;">
-              <ckeditor v-if="isLayoutReady" v-model="education.desc" :editor="editor" :config="config"/>
-            </div>
-          </el-form-item>
-        </el-collapse-item>
-        <el-divider border-style="dashed"/>
-      </el-form>
-    </div>
-  </el-collapse>
-  <el-button type="primary" :icon="Plus" @click="addItem">添加教育信息</el-button>
-  <el-divider border-style="dashed"/>
+            </a-col>
+        </a-row>
+        <a-form-item label="教育描述" name="desc">
+          <div style="width:100%;">
+            <ckeditor v-if="isLayoutReady" v-model="education.desc" :editor="editor" :config="config"/>
+          </div>
+        </a-form-item>
+      </a-form>
+    </a-collapse-panel>
+  </a-collapse>
+  <a-divider/>
+  <a-button type="primary" @click="addItem">添加教育信息</a-button>
+  <a-divider/>
 </template>
 
 <style scoped>

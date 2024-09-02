@@ -1,38 +1,38 @@
 <template>
-  <el-row style="width: 100vw; min-height: 100vh; background-color: darkgray">
-    <el-col :span="12" style="background-color: #f9f9f9;">
-      <el-main>
-        <el-steps style="max-width: 46vw" :active="active" finish-status="success" align-center>
-          <el-step v-for="(step, index) in steps" :title="step.title" :description="step.description" :key="index"/>
-        </el-steps>
-        <BasicInfo v-if="active==0" ref="basicInfoRef" :basicInfoData="basicInfoComputed"></BasicInfo>
-        <WorkInfo v-else-if="active==1" ref="workInfoRef" :workInfos="workInfos"></WorkInfo>
-        <EducationInfo v-else-if="active==2" ref="educationInfoRef" :educationInfos="educationInfos"></EducationInfo>
-        <SkillInfo v-else-if="active==3" ref="skillInfoRef" :skillInfos="skillsComputed"></SkillInfo>
-        <AboutMeInfo v-else-if="active==4" ref="aboutMeInfoRef" :aboutMeInfo="aboutMeInfo"></AboutMeInfo>
-        <div style="display: flex; justify-content: flex-end; width: 45vw">
-          <el-button style="margin-top: 12px" @click="next" type="primary" size="large">下一步</el-button>
-        </div>
-      </el-main>
-    </el-col>
-    <el-col :span="12" style="background-color: #888888;">
+  <contextHolder />
+  <a-row style="min-height: 100vh; background-color: darkgray">
+    <a-col :span="12" style="background-color: #f9f9f9; padding: 8px">
+      <a-steps size="small" label-placement="vertical" :current="active" :items="steps"/>
+      <BasicInfo v-if="active==0" ref="basicInfoRef" :basicInfoData="basicInfoComputed"></BasicInfo>
+      <WorkInfo v-else-if="active==1" ref="workInfoRef" :workInfos="workInfos"></WorkInfo>
+      <EducationInfo v-else-if="active==2" ref="educationInfoRef" :educationInfos="educationInfos"></EducationInfo>
+      <SkillInfo v-else-if="active==3" ref="skillRef" :skillInfos="skillsComputed"></SkillInfo>
+      <AboutMeInfo v-else-if="active==4" ref="aboutMeInfoRef" :aboutMeInfo="aboutMeInfo"></AboutMeInfo>
+      <div style="display: flex; justify-content: flex-end; width: 45vw">
+        <a-button style="margin-top: 12px" @click="next" type="primary" size="large">下一步</a-button>
+      </div>
+    </a-col>
+    <a-col :span="12" style="background-color: #888888;">
       <div style="background-color: darkcyan; text-align: center">
         <router-link :to="{name: 'preview'}">跳转到预览</router-link>
       </div>
-      <el-col :span="18" :offset="3" style="background-color: #f9f9f9;">
+      <a-col :span="18" :offset="3" style="background-color: #f9f9f9;">
         <ResumeTemplateA :basicInfo="basicInfoComputed"
                          :workInfos="workInfos"
                          :educationInfos="educationInfos"
                          :aboutMeInfo="aboutMeInfo"
                          :skillInfos="skillsComputed">
         </ResumeTemplateA>
-      </el-col>
-    </el-col>
-  </el-row>
+      </a-col>
+    </a-col>
+  </a-row>
 </template>
 
 <script lang="ts" setup>
 import {ref, computed} from 'vue'
+
+const [api, contextHolder] = notification.useNotification();
+
 import BasicInfo from "../components/BasicInfo.vue";
 import ResumeTemplateA from "../components/ResumeTemplateA.vue";
 import WorkInfo from "../components/WorkInfo.vue";
@@ -55,6 +55,8 @@ const active = ref(0);
 
 // 从pinpa加载数据
 import {BasicInfoStore, SkillStore} from '../stores';
+import {notification} from "ant-design-vue";
+
 const basicInfoStore = BasicInfoStore();
 const basicInfoComputed = computed(() => basicInfoStore);
 
@@ -72,7 +74,6 @@ interface workForm {
   is_doing: boolean
   desc: string
 }
-
 
 const workInfoRef = ref(null);
 const workInfos = ref(<workForm>[{
@@ -96,6 +97,7 @@ const educationInfos = ref([{
 }]);
 
 // 技能信息
+const skillRef = ref(null)
 const skillStore = SkillStore();
 const skillsComputed = computed(() => skillStore.skills);
 
@@ -117,23 +119,22 @@ const next = async () => {
     } else if (active.value == 2) {
       isValid = await educationInfoRef.value.validateForm();
     } else if (active.value == 3) {
-      isValid = await skillInfoRef.value.validateForm();
+      isValid = await skillRef.value.validateForm();
     } else if (active.value == 4) {
       isValid = await aboutMeInfoRef.value.validateForm();
     }
     if (isValid) {
       if (active.value++ > 4) active.value = 0;
     } else {
-      ElMessage({
-        message: '请填写相关信息,然后再下一步',
-        type: 'warning',
-      });
+      api.info({
+        message: '温馨提示',
+        description: '请填写相关信息,然后再下一步'
+      })
     }
   } catch (err) {
-    console.log(err);
-    ElMessage({
-      message: '系统错误',
-      type: 'error',
+    api.error({
+      message: '提示信息',
+      description: '系统错误'
     })
   }
 }

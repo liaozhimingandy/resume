@@ -162,16 +162,18 @@ onMounted(() => {
 // -------------------------
 
 // 表单校验
-const validateForm = () => {
-    return new Promise((resolve, reject) => {
-      formRef.value.validate((valid) => {
-        if (valid) {
-          resolve(true);
-        } else {
-          reject(false);
-        }
-      });
-    });
+const validateForm = async () => {
+    try {
+    // 调用 validate 方法，该方法返回 Promise
+    await formRef.value.validate();
+    console.log('Form is valid');
+    return true;
+    // 处理表单提交逻辑，例如发送表单数据到服务器
+  } catch (errors) {
+    console.log('Form validation failed:', errors);
+    return false;
+    // 处理表单校验失败的逻辑，例如显示错误信息给用户
+  }
   };
 
 // 暴露方法
@@ -182,20 +184,18 @@ defineExpose({
 
 <template>
   <h2>写下你的职业总结</h2>
-  <el-form label-width="auto" :model="aboutMeInfo" style="width: 45vw" :rules="rules" status-icon ref="formRef">
-    <el-form-item label="工作总结" prop="desc">
+  <a-form :model="aboutMeInfo" style="width: 45vw" :rules="rules" ref="formRef">
+    <a-form-item label="工作总结" name="desc" has-feedback>
       <div style="width:100%;">
         <ckeditor v-if="isLayoutReady" v-model="aboutMeInfo.desc" :editor="editor" :config="config"/>
       </div>
-    </el-form-item>
-    <el-divider border-style="dashed"/>
-    <el-form-item label="自我介绍" prop="desc">
-      <div style="width:100%;">
+    </a-form-item>
+    <a-divider/>
+    <a-form-item label="自我介绍" name="desc" has-feedback>
         <ckeditor v-if="isLayoutReady" v-model="aboutMeInfo.profile" :editor="editor" :config="config"/>
-      </div>
-    </el-form-item>
-    <el-divider border-style="dashed"/>
-  </el-form>
+    </a-form-item>
+    <a-divider/>
+  </a-form>
 </template>
 
 <style scoped>
