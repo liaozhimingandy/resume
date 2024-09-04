@@ -3,23 +3,29 @@ import {reactive, ref, computed} from 'vue';
 
 import {PhoneOutlined, MailOutlined, UserOutlined} from '@ant-design/icons-vue';
 
+import {BasicInfoStore} from "../stores/index.js";
 
+// 省份信息
 const provinces = reactive([{
   value: 'jiangxi', label: '江西省'
 }])
 
+// 城市信息
 const cities = reactive({
   "jiangxi": [
     {value: 'nanchang', label: '南昌市'},]
 })
 
+// 城市选择项
 const cityOptions = computed(() => {
-  return cities[model.value.province] || [];
+  return cities[basicInfo.value.province] || [];
 });
 
+// 基本信息
 const formRef = ref(null);
-// 表单数据
-const model = defineModel("basicInfoData");
+const basicInfoStore = BasicInfoStore();
+const basicInfo = computed(() => basicInfoStore);
+
 // 校验规则
 const rules = {
   first_name: [
@@ -60,14 +66,14 @@ defineExpose({
 </script>
 
 <template>
-  <a-form :model="model" style="width: 45vw" :rules="rules" ref="formRef">
+  <a-form :model="basicInfo" style="width: 45vw" :rules="rules" ref="formRef">
     <h2>请填写你的基本信息</h2>
     <!--      姓名 -->
     <a-row :gutter="24">
       <a-col :span="11">
         <a-form-item name="first_name" has-feedback>
           <a-input
-              v-model:value="model.first_name"
+              v-model:value="basicInfo.first_name"
               size="large"
               placeholder="张"
           >
@@ -80,7 +86,7 @@ defineExpose({
       <a-col :span="11" :offset="2">
         <a-form-item has-feedback name="last_name">
           <a-input
-              v-model:value="model.last_name"
+              v-model:value="basicInfo.last_name"
               size="large"
               placeholder="三"
           >
@@ -95,7 +101,7 @@ defineExpose({
     <a-row :span="24">
       <a-col :span="11">
         <a-form-item name="province">
-          <a-select v-model:value="model.province" placeholder="请选择省份" size="large">
+          <a-select v-model:value="basicInfo.province" placeholder="请选择省份" size="large">
             <a-select-option
                 v-for="item in provinces"
                 :value="item.value"
@@ -106,7 +112,8 @@ defineExpose({
       </a-col>
       <a-col :span="11" :offset="2">
         <a-form-item name="city">
-          <a-select v-model:value="model.city" placeholder="请选择城市" v-if="model.province.length" size="large">
+          <a-select v-model:value="basicInfo.city" placeholder="请选择城市" v-if="basicInfo.province.length"
+                    size="large">
             <a-select-option
                 v-for="item in cityOptions"
                 :value="item.value">
@@ -122,7 +129,7 @@ defineExpose({
       <a-col :span="8">
         <a-form-item name="tel_no" has-feedback>
           <a-input
-              v-model:value="model.tel_no"
+              v-model:value="basicInfo.tel_no"
               size="large"
               placeholder="12345678901"
           >
@@ -135,7 +142,7 @@ defineExpose({
       <a-col :span="15" :offset="1">
         <a-form-item name="email" has-feedback>
           <a-input
-              v-model:value="model.email"
+              v-model:value="basicInfo.email"
               size="large"
               placeholder="例如 admin@qq.com"
           >

@@ -1,12 +1,17 @@
 <script setup>
-import {ref, onMounted} from 'vue';
+import {ref, onMounted, computed} from 'vue';
 
-const aboutMeInfo = defineModel("aboutMeInfo");
+import {AboutMeStore} from "../stores/index.js";
+
+// 基本信息
+const aboutMeStore = AboutMeStore();
+const aboutMeInfo = computed(() => aboutMeStore);
 const formRef = ref(null);
+
 // 校验规则
 const rules = {
   desc: [
-    {required: true, message: '写一段你的职业总结', trigger:'blur'},
+    {required: true, message: '写一段你的职业总结', trigger: 'blur'},
     {min: 1, max: 255, message: '长度必须介于1和255之间', trigger: ['blur', 'change']},
   ],
   profile: [
@@ -163,28 +168,26 @@ onMounted(() => {
 
 // 表单校验
 const validateForm = async () => {
-    try {
+  try {
     // 调用 validate 方法，该方法返回 Promise
     await formRef.value.validate();
-    console.log('Form is valid');
     return true;
     // 处理表单提交逻辑，例如发送表单数据到服务器
   } catch (errors) {
-    console.log('Form validation failed:', errors);
     return false;
     // 处理表单校验失败的逻辑，例如显示错误信息给用户
   }
-  };
+};
 
 // 暴露方法
 defineExpose({
-	validateForm
+  validateForm
 })
 </script>
 
 <template>
   <h2>写下你的职业总结</h2>
-  <a-form :model="aboutMeInfo" style="width: 45vw" :rules="rules" ref="formRef">
+  <a-form :model="aboutMeInfo" :rules="rules" ref="formRef">
     <a-form-item label="工作总结" name="desc" has-feedback>
       <div style="width:100%;">
         <ckeditor v-if="isLayoutReady" v-model="aboutMeInfo.desc" :editor="editor" :config="config"/>
@@ -192,7 +195,7 @@ defineExpose({
     </a-form-item>
     <a-divider/>
     <a-form-item label="自我介绍" name="desc" has-feedback>
-        <ckeditor v-if="isLayoutReady" v-model="aboutMeInfo.profile" :editor="editor" :config="config"/>
+      <ckeditor v-if="isLayoutReady" v-model="aboutMeInfo.profile" :editor="editor" :config="config"/>
     </a-form-item>
     <a-divider/>
   </a-form>

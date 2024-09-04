@@ -26,8 +26,27 @@ const BasicInfoStore = defineStore({
     },
 });
 
+// 工作信息
+const WorkStore = defineStore({
+    id: 'works',
+    state: () => {
+        const works = ref([])
+        return {works}
+    },
+    persist: {
+        enabled: true,
+        strategies: [
+            {
+                key: 'works',
+                storage: localStorage,
+            },
+        ],
+    },
+});
+
+// 技能信息
 const SkillStore = defineStore({
-    id: 'skill',
+    id: 'skills',
     state: () => {
         const skills = ref([])
         return {skills}
@@ -36,11 +55,48 @@ const SkillStore = defineStore({
         enabled: true,
         strategies: [
             {
-                key: 'skill',
+                key: 'skills',
                 storage: localStorage,
             },
         ],
     },
 });
 
-export {BasicInfoStore, SkillStore}
+// 教育信息
+const EduStore = defineStore({
+    id: 'edus',
+    state: () => {
+        const edus = ref([])
+        return {edus}
+    },
+    persist: {
+        enabled: true,
+        strategies: [
+            {
+                key: 'edus',
+                storage: localStorage,
+            },
+        ],
+    },
+});
+
+// 关于我的
+const AboutMeStore = defineStore({
+    id: 'aboutMe',
+    state: () => {
+        const profile = ref(null);
+        const desc = ref(null)
+        return {profile, desc}
+    },
+    persist: {
+        enabled: true,
+        strategies: [
+            {
+                key: 'aboutMe',
+                storage: localStorage,
+            },
+        ],
+    },
+});
+
+export {BasicInfoStore, SkillStore, EduStore, AboutMeStore, WorkStore}

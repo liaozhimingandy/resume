@@ -1,31 +1,43 @@
 <script setup>
 
-const basicInfo = defineModel("basicInfo");
-const workInfos = defineModel("workInfos");
-const educationInfos = defineModel("educationInfos");
-const skills = defineModel("skillInfos");
-const aboutMeInfo = defineModel("aboutMeInfo")
+import {AboutMeStore, BasicInfoStore, EduStore, SkillStore, WorkStore} from "../stores/index.js";
+import {computed} from "vue";
+
+const basicInfoStore = BasicInfoStore();
+const basicInfoComputed = computed(() => basicInfoStore);
+
+const workStore = WorkStore();
+const workInfos = computed(() => workStore.works);
+
+const eduStore = EduStore();
+const educationInfos = computed(() => eduStore.edus);;
+
+const skillStore = SkillStore();
+const skillsComputed = computed(() => skillStore.skills);
+
+const aboutMeStore = AboutMeStore();
+const aboutMeInfo = computed(() => aboutMeStore);
 
 </script>
 <template>
   <div style="min-height: 297mm; padding: 8px">
     <a-row style="background-color: darkgray;">
       <a-col :span="16">
-        <div>{{ basicInfo.first_name }}{{ basicInfo.last_name }}</div>
-        <div>{{ basicInfo.tel_no }}</div>
-        <div>{{ basicInfo.email }}</div>
+        <div>{{ basicInfoComputed.first_name }}{{ basicInfoComputed.last_name }}</div>
+        <div>{{ basicInfoComputed.tel_no }}</div>
+        <div>{{ basicInfoComputed.email }}</div>
       </a-col>
       <a-col :span="6" offset="2" style="text-align: center; align-content: center">个人简历</a-col>
     </a-row>
     <a-row>
-      <h4 style="margin: 0">自我描述</h4>
-      <a-divider/>
-      {{ aboutMeInfo.desc }}
+      <h4>自我描述</h4>
+      <a-divider :dashed="true"/>
+      <div v-html="aboutMeInfo.desc"></div>
     </a-row>
-    <a-row style="margin-top: 8px">
+    <a-row>
       <a-col :span="15">
-        <h4 style="margin: 0">工作经历</h4>
-        <a-divider/>
+        <h4>工作经历</h4>
+        <a-divider :dashed="true"/>
         <div v-for="(workInfo, index) in workInfos">
           <a-row>
             <a-col :span="13" :offset="1">
@@ -38,15 +50,13 @@ const aboutMeInfo = defineModel("aboutMeInfo")
               </a-badge>
             </a-col>
           </a-row>
-          <div>
-            {{ workInfo.desc }}
-          </div>
+          <div v-html="workInfo.desc" />
         </div>
       </a-col>
       <a-col :span="8" :offset="1">
-        <h4 style="margin: 0">工作技能</h4>
-        <a-divider/>
-        <div v-for="(skill) in skills">
+        <h4>工作技能</h4>
+        <a-divider :dashed="true"/>
+        <div v-for="(skill) in skillsComputed">
           <h6 style="margin: 0">{{ skill.skill }}</h6>
           <a-progress
               :percent="skill.percent"
@@ -58,7 +68,7 @@ const aboutMeInfo = defineModel("aboutMeInfo")
           />
         </div>
         <h4>教育</h4>
-        <a-divider/>
+        <a-divider :dashed="true"/>
         <div v-for="(education, index) in educationInfos">
           <a-badge :value="index+1" :max="99" :offset="[10, 5]">
             <h4 style="margin: 0">{{ education.certificate }}</h4>
@@ -67,20 +77,24 @@ const aboutMeInfo = defineModel("aboutMeInfo")
           <div>
             {{ education.gmt_edu_start }}~{{ education.gmt_edu_end }}
           </div>
-          <p style="margin: 0">{{ education.edu_desc }} </p>
+          <div v-html="education.edu_desc" />
         </div>
         <br/>
         <h4 style="margin: 4px">兴趣爱好</h4>
-        <a-divider/>
-        <p style="margin: 0">{{ aboutMeInfo.desc }}</p>
+        <a-divider :dashed="true"/>
+        <div v-html="aboutMeInfo.desc" />
       </a-col>
     </a-row>
   </div>
 </template>
 
 <style scoped>
-.a-divider {
+.ant-divider {
   margin: 0;
   padding: 0;
+}
+
+h4 {
+  margin-bottom: 4px;
 }
 </style>
