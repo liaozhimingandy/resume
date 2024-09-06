@@ -6,7 +6,7 @@ import AutoImport from 'unplugin-auto-import/vite'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-    base: '/resume/',
+    base: '/resume/', // 这里保持和你你的 GitHub 仓库名一致
     plugins: [
         vue(),
         AutoImport({

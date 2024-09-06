@@ -16,14 +16,14 @@ const routes = [
 
 const router = createRouter({
     // 内部提供了 history 模式的实现。为了简单起见，我们在这里使用 hash 模式
-    history: createWebHistory(),
+    history: createWebHistory(import.meta.env.BASE_URL),
     routes: routes, // `routes: routes` 的缩写
     trailingSlash: true // 设置 URL 以斜杠结尾
 });
 
 router.beforeEach((to, from, next) => {//beforeEach是router的钩子函数，在进入路由前执行
     if (to.meta.title) {
-        document.title = to.meta.title + ' | alsoapp'
+        document.title = to.meta.title + ' | 简历生成器'
     }
 
     // 如果路径不是以 / 开头，则自动添加 /
