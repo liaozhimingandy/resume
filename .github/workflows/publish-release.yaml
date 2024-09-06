@@ -67,4 +67,3 @@ jobs:
           asset_path: ./build.zip  # 上传的文件路径
           asset_name: build.zip  # 上传后显示的文件名称
           asset_content_type: application/zip  # 文件类型
-

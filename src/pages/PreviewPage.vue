@@ -48,7 +48,7 @@ const version = computed(() => `version:${import.meta.env.VITE_APP_VERSION}`);
 <template>
   <div style="background-color: #E9EBEE; text-align: center">
     <a-layout>
-      <a-layout-header style="background-color: #E9EBEE; text-align: center">
+      <a-layout-header style="background-color: #E9EBEE; text-align: center; width: 100%">
         <a-button type="primary" @click="exportPDF">保存到本地用于打印</a-button>
       </a-layout-header>
       <a-layout-content>
@@ -56,7 +56,7 @@ const version = computed(() => `version:${import.meta.env.VITE_APP_VERSION}`);
           <Default/>
         </div>
       </a-layout-content>
-       <a-layout-footer>{{ version }}</a-layout-footer>
+       <a-layout-footer style="width: 100%">{{ version }}</a-layout-footer>
     </a-layout>
   </div>
 </template>
