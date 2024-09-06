@@ -9,6 +9,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    permissions:
+      contents: write  # 确保有写权限
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
