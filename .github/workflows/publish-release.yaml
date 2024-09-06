@@ -34,43 +34,34 @@ jobs:
           npm run build 
           cp dist/index.html dist/404.html
 
+       # 打包成压缩文件
+      - name: Archive build files
+        run: zip -r build.zip ./dist  # 将 dist 文件夹打包成 build.zip
 
-      - name: Archive build artifacts
-        run: |  
-          mkdir release  
-          cp -r dist/* release/  
-          tar -czvf release.tar.gz release/
-
-
-      - name: Extract version from tag
-        id: extract_version
-        run: echo ::set-output name=version::${GITHUB_REF#refs/tags/v}
-
-      - name: Create Release
+      # 创建新的发布
+      - name: Create GitHub Release
         id: create_release
         uses: actions/create-release@v1
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # GitHub 提供的默认 Token
         with:
-          tag_name: ${{ github.ref }} # 使用推送的标签作为发布名
-          release_name: Release ${{ steps.extract_version.outputs.version }}
-          body: |
-            Changes in this Release:
-            - auto release.
-          draft: false
-          prerelease: false
+          tag_name: ${{ github.ref }}  # 使用推送的标签名
+          release_name: Release ${{ github.ref }}
+          draft: false  # 如果设置为 true，则创建一个草稿 Release
+          prerelease: false  # 如果设置为 true，则创建预发布版本
 
+      # 显示文件目录
       - name: Display structure of downloaded files
         run: ls
 
-      - name: Upload Release Asset
-        id: upload-release-asset
+      # 上传已构建的文件
+      - name: Upload build artifact to Release
         uses: actions/upload-release-asset@v1
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # GitHub 提供的默认 Token
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./release.tar.gz
-          asset_name: vue3-release-${{ steps.extract_version.outputs.version }}.tar.gz
-          asset_content_type: application/octet-stream
+          asset_path: ./build.zip  # 上传的文件路径
+          asset_name: build.zip  # 上传后显示的文件名称
+          asset_content_type: application/zip  # 文件类型
 
