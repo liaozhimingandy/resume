@@ -10,13 +10,13 @@ const formRef = ref(null);
 
 // 校验规则
 const rules = {
-  desc: [
-    {required: true, message: '写一段你的职业总结', trigger: 'blur'},
-    {min: 1, max: 255, message: '长度必须介于1和255之间', trigger: ['blur', 'change']},
-  ],
   profile: [
+    {required: true, message: '写一段你的职业总结', trigger: 'blur'},
+    {min: 1, max: 1024, message: '长度必须介于1和1024之间', trigger: ['blur', 'change']},
+  ],
+  desc: [
     {required: true, message: '请填写名', trigger: 'blur'},
-    {min: 1, max: 32, message: '长度必须介于1和32之间', trigger: ['blur', 'change']},
+    {min: 1, max: 1024, message: '长度必须介于1和024之间', trigger: ['blur', 'change']},
   ],
 };
 
@@ -188,14 +188,14 @@ defineExpose({
 <template>
   <h2>写下你的职业总结</h2>
   <a-form :model="aboutMeInfo" :rules="rules" ref="formRef">
-    <a-form-item label="工作总结" name="desc" has-feedback>
+    <a-form-item label="自我描述" name="profile" has-feedback>
       <div style="width:100%;">
-        <ckeditor v-if="isLayoutReady" v-model="aboutMeInfo.desc" :editor="editor" :config="config"/>
+        <ckeditor v-if="isLayoutReady" v-model="aboutMeInfo.profile" :editor="editor" :config="config"/>
       </div>
     </a-form-item>
     <a-divider/>
-    <a-form-item label="自我介绍" name="desc" has-feedback>
-      <ckeditor v-if="isLayoutReady" v-model="aboutMeInfo.profile" :editor="editor" :config="config"/>
+    <a-form-item label="兴趣爱好" name="desc" has-feedback>
+      <ckeditor v-if="isLayoutReady" v-model="aboutMeInfo.desc" :editor="editor" :config="config"/>
     </a-form-item>
     <a-divider/>
   </a-form>

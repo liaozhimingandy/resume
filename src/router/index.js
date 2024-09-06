@@ -1,14 +1,16 @@
 import {createRouter, createWebHistory} from 'vue-router';
 
 import Setup from "../pages/Setup.vue";
-import HelloWorld from "../components/HelloWorld.vue";
 import NotFoundPage from "../pages/NotFoundPage.vue";
 import PreviewPage from "../pages/PreviewPage.vue";
+import TestPage from "../pages/TestPage.vue";
+import HomePage from "../pages/HomePage.vue";
 
 const routes = [
-    {path: '/', name: 'index', component: HelloWorld, meta: {title: "首页"}},
+    {path: '/', name: 'home', component: HomePage, meta: {title: "首页"}},
     {path: '/setup/', name: 'setup', component: Setup, meta: {title: "创建简历"}},
     {path: '/preview/', name: 'preview', component: PreviewPage, meta: {title: "预览简历"}},
+    {path: '/test/', name: 'test', component: TestPage, meta: {title: "测试页"}},
     {path: '/:catchALL(.*)/', component: NotFoundPage, name: 'not-fond', meta: {title: "Not Found"}},
     ]
 

@@ -51,6 +51,7 @@ import {
 } from 'ckeditor5';
 import 'ckeditor5/ckeditor5.css';
 import translations from 'ckeditor5/translations/zh-cn.js';
+import Tags from "./Tags.vue";
 
 const isLayoutReady = ref(false);
 let config = ref(null);
@@ -185,12 +186,13 @@ const rules = {
 const addItem = () => {
   experiences.value.push({
     id: uuidv4(),
-    firm: "",
-    title: "",
-    gmt_start: "",
-    gmt_end: "",
+    firm: null,
+    title: null,
+    gmt_start: null,
+    gmt_end: null,
     is_doing: false,
-    desc: ""
+    desc: null,
+    techs: []
   });
   activeKey.value = experiences.value.at(-1)['id']
 };
@@ -265,6 +267,9 @@ defineExpose({validateForm})
         </a-form-item>
         <a-form-item label="工作描述" name="desc">
           <ckeditor v-if="isLayoutReady" v-model="model.desc" :editor="editor" :config="config"/>
+        </a-form-item>
+        <a-form-item label="使用到的技术">
+          <Tags v-model:tags="model.techs" tips="请使用到的技术" />
         </a-form-item>
       </a-collapse-panel>
     </a-collapse>

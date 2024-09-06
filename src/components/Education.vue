@@ -175,8 +175,8 @@ const rules = {
     {required: true, message: '请填写教育描述', trigger: 'blur'},
     {min: 1, max: 255, message: '长度必须介于1和255之间', trigger: ['blur', 'change']},
   ],
-  gmt_edu_start: [
-    {required: true, message: '工作开始时间不能为空', trigger: 'blur'}
+  gmt_start: [
+    {required: true, message: '教育开始时间不能为空', trigger: 'blur'}
   ]
 
 };
@@ -189,8 +189,8 @@ const addItem = () => {
         edu_unit: "",
         edu_desc: "",
         certificate: "",
-        gmt_edu_start: "",
-        gmt_edu_end: ""
+        gmt_start: "",
+        gmt_end: ""
       }
   );
   activeKey.value = educations.value.at(-1)['id']
@@ -242,8 +242,8 @@ defineExpose({validateForm})
         </a-row>
         <a-row>
           <a-col :span="11">
-            <a-form-item label="开始日期" name="gmt_edu_start">
-              <a-date-picker v-model:value="education.gmt_edu_start" value-format="YYYY-MM-DD" :locale="locale"
+            <a-form-item label="开始日期" name="gmt_start">
+              <a-date-picker v-model:value="education.gmt_start" value-format="YYYY-MM-DD" :locale="locale"
                              style="width: 100%"/>
             </a-form-item>
           </a-col>
@@ -252,7 +252,7 @@ defineExpose({validateForm})
           </a-col>
           <a-col :span="11">
             <a-form-item label="结束日期">
-              <a-date-picker v-model:value="education.gmt_edu_end" value-format="YYYY-MM-DD" :locale="locale"
+              <a-date-picker v-model:value="education.gmt_end" value-format="YYYY-MM-DD" :locale="locale"
                              style="width: 100%"/>
             </a-form-item>
           </a-col>

@@ -12,8 +12,9 @@ const BasicInfoStore = defineStore({
         const email = ref('aa@gg.com')
         const province = ref('jiangxi')
         const city = ref('nanchang')
+        const hopes = ref([])
 
-        return {first_name, last_name, tel_no, email, province, city}
+        return {first_name, last_name, tel_no, email, province, city, hopes}
     },
     persist: {
         enabled: true,

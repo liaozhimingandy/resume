@@ -1,9 +1,10 @@
 <script setup>
-import {reactive, ref, computed} from 'vue';
+import {computed, reactive, ref} from 'vue';
 
-import {PhoneOutlined, MailOutlined, UserOutlined} from '@ant-design/icons-vue';
+import {MailOutlined, PhoneOutlined, PlusOutlined, UserOutlined} from '@ant-design/icons-vue';
 
 import {BasicInfoStore} from "../stores/index.js";
+import Tags from "./Tags.vue";
 
 // 省份信息
 const provinces = reactive([{
@@ -44,6 +45,10 @@ const rules = {
     {required: true, message: '请输入联系电话', trigger: 'blur'},
     {pattern: /^1[3-9]\d{9}$/, message: '请输入有效的手机号码', trigger: 'blur'}
   ],
+  hope: [
+    {required: true, message: '请输入您期望从事岗位', trigger: 'blur'},
+    {min: 1, max: 32, message: '长度必须介于1和32之间', trigger: 'blur'}
+  ]
 };
 
 // 表单校验
@@ -69,14 +74,13 @@ defineExpose({
   <a-form :model="basicInfo" style="width: 45vw" :rules="rules" ref="formRef">
     <h2>请填写你的基本信息</h2>
     <!--      姓名 -->
-    <a-row :gutter="24">
+    <a-row>
       <a-col :span="11">
         <a-form-item name="first_name" has-feedback>
           <a-input
               v-model:value="basicInfo.first_name"
               size="large"
-              placeholder="张"
-          >
+              placeholder="张">
             <template #addonBefore>
               <UserOutlined/>
             </template>
@@ -98,7 +102,7 @@ defineExpose({
       </a-col>
     </a-row>
     <!--      目前所在城市-->
-    <a-row :span="24">
+    <a-row>
       <a-col :span="11">
         <a-form-item name="province">
           <a-select v-model:value="basicInfo.province" placeholder="请选择省份" size="large">
@@ -124,7 +128,7 @@ defineExpose({
       </a-col>
     </a-row>
     <!--  联系方式  -->
-    <a-row :span="24">
+    <a-row>
       <!--      电话 -->
       <a-col :span="8">
         <a-form-item name="tel_no" has-feedback>
@@ -153,9 +157,19 @@ defineExpose({
         </a-form-item>
       </a-col>
     </a-row>
+    <!-- 期待从事的岗位 -->
+    <a-row>
+      <a-col :span="24">
+        <a-form-item name="hopes" label="期待的岗位">
+          <Tags v-model:tags="basicInfo.hopes" tips="期待的岗位"/>
+        </a-form-item>
+      </a-col>
+    </a-row>
   </a-form>
 </template>
 
 <style scoped>
-
+.large-font-tag {
+  font-size: 16px;
+}
 </style>
