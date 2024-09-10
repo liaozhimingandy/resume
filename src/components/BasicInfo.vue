@@ -71,11 +71,11 @@ defineExpose({
 </script>
 
 <template>
-  <a-form :model="basicInfo" style="width: 45vw" :rules="rules" ref="formRef">
+  <a-form :model="basicInfo" style="width: 100%" :rules="rules" ref="formRef">
     <h2>请填写你的基本信息</h2>
     <!--      姓名 -->
     <a-row>
-      <a-col :span="11">
+      <a-col :xs="24" :sm="12" :md="11" :lg="11" :xl="11">
         <a-form-item name="first_name" has-feedback>
           <a-input
               v-model:value="basicInfo.first_name"
@@ -87,7 +87,7 @@ defineExpose({
           </a-input>
         </a-form-item>
       </a-col>
-      <a-col :span="11" :offset="2">
+      <a-col :xs="24" :sm="12" :md="{ span: 11, offset: 2 }" :lg="{ span: 11, offset: 2 }" :xl="{ span: 11, offset: 2 }">
         <a-form-item has-feedback name="last_name">
           <a-input
               v-model:value="basicInfo.last_name"
@@ -103,7 +103,7 @@ defineExpose({
     </a-row>
     <!--      目前所在城市-->
     <a-row>
-      <a-col :span="11">
+      <a-col :xs="24" :sm="12" :md="11" :lg="11" :xl="11">
         <a-form-item name="province">
           <a-select v-model:value="basicInfo.province" placeholder="请选择省份" size="large">
             <a-select-option
@@ -114,7 +114,7 @@ defineExpose({
           </a-select>
         </a-form-item>
       </a-col>
-      <a-col :span="11" :offset="2">
+      <a-col :xs="24" :sm="12" :md="{ span: 11, offset: 2 }" :lg="{ span: 11, offset: 2 }" :xl="{ span: 11, offset: 2 }">
         <a-form-item name="city">
           <a-select v-model:value="basicInfo.city" placeholder="请选择城市" v-if="basicInfo.province.length"
                     size="large">
@@ -130,7 +130,7 @@ defineExpose({
     <!--  联系方式  -->
     <a-row>
       <!--      电话 -->
-      <a-col :span="8">
+      <a-col :xs="24" :sm="12" :md="8" :lg="8" :xl="8">
         <a-form-item name="tel_no" has-feedback>
           <a-input
               v-model:value="basicInfo.tel_no"
@@ -143,7 +143,7 @@ defineExpose({
           </a-input>
         </a-form-item>
       </a-col>
-      <a-col :span="15" :offset="1">
+      <a-col :xs="24" :sm="12" :md="{ span: 15, offset: 1 }" :lg="{ span: 15, offset: 1 }" :xl="{ span: 15, offset: 1 }">
         <a-form-item name="email" has-feedback>
           <a-input
               v-model:value="basicInfo.email"
@@ -159,11 +159,9 @@ defineExpose({
     </a-row>
     <!-- 期待从事的岗位 -->
     <a-row>
-      <a-col :span="24">
         <a-form-item name="hopes" label="期待的岗位">
           <Tags v-model:tags="basicInfo.hopes" tips="期待的岗位"/>
         </a-form-item>
-      </a-col>
     </a-row>
   </a-form>
 </template>

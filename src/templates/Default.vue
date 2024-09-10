@@ -5,6 +5,7 @@ import {PhoneOutlined, MailOutlined} from '@ant-design/icons-vue';
 
 import {AboutMeStore, BasicInfoStore, EduStore, SkillStore, WorkStore} from "../stores/index.js";
 
+
 const basicInfoStore = BasicInfoStore();
 const basicInfo = computed(() => basicInfoStore);
 
@@ -130,8 +131,6 @@ const tag_color = () => colors[Math.floor(Math.random() * colors.length)];
 </template>
 
 <style scoped>
-
-
 h3 {
   margin-top: 2px;
   margin-bottom: 4px;

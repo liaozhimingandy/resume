@@ -1,6 +1,6 @@
 import {createRouter, createWebHistory} from 'vue-router';
 
-import Setup from "../pages/Setup.vue";
+import Setup from "../pages/SetupPage.vue";
 import NotFoundPage from "../pages/NotFoundPage.vue";
 import PreviewPage from "../pages/PreviewPage.vue";
 import TestPage from "../pages/TestPage.vue";

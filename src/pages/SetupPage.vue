@@ -1,7 +1,7 @@
 <template>
   <contextHolder/>
   <a-row style="min-height: 100vh; background-color: darkgray">
-    <a-col :span="12" style="background-color: #f9f9f9; padding: 8px">
+    <a-col :xs="24" :sm="12" :md="12" style="background-color: #f9f9f9; padding: 8px">
       <a-steps size="small" label-placement="vertical" v-model:current="active" :items="steps"/>
       <BasicInfo v-if="active==0" ref="basicInfoRef"></BasicInfo>
       <WorkInfo v-else-if="active==1" ref="workInfoRef"></WorkInfo>
@@ -18,7 +18,7 @@
         <a-button @click="next" type="primary" size="large">下一步</a-button>
       </a-space>
     </a-col>
-    <a-col :span="12" style="background-color: #E9EBEE;">
+    <a-col :xs="24" :sm="12" :md="12" style="background-color: #E9EBEE;">
       <a-layout>
         <a-layout-header style="background-color: #E9EBEE; text-align: center">
           <a-button type="primary">
