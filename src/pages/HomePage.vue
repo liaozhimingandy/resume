@@ -1,13 +1,13 @@
 <script setup>
-import {computed, ref} from "vue";
+import {ref} from "vue";
 
 import {AntDesignOutlined, MailOutlined, BugFilled} from '@ant-design/icons-vue';
 
 import Default from "../templates/Default.vue";
+import Footer from "@/components/Footer.vue";
 
 const activeKey = ref('1');
 
-const version = computed(() => `version:${import.meta.env.VITE_APP_VERSION}`);
 </script>
 
 <template>
@@ -96,7 +96,9 @@ const version = computed(() => `version:${import.meta.env.VITE_APP_VERSION}`);
         </a-tab-pane>
       </a-tabs>
     </a-layout-content>
-    <a-layout-footer>{{ version }}</a-layout-footer>
+    <a-layout-footer>
+      <Footer />
+    </a-layout-footer>
   </a-layout>
   <a-float-button>
     <template #icon>

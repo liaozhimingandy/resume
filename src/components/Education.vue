@@ -1,11 +1,12 @@
 <script setup>
-import {ref, onMounted, computed} from 'vue';
+import {ref, computed} from 'vue';
 
 import {DeleteOutlined} from '@ant-design/icons-vue';
 import locale from 'ant-design-vue/es/date-picker/locale/zh_CN';
 import {v4 as uuidv4} from 'uuid';
 
 import {EduStore} from "../stores/index.js";
+import MEditor from "@/components/MEditor.vue";
 
 // 基本信息
 const eduStore = EduStore();
@@ -13,153 +14,6 @@ const educations = computed(() => eduStore.edus);
 const formRefs = ref([]);
 // 当前激活项
 const activeKey = ref(null);
-
-// 富文本编辑器配置
-import {
-  ClassicEditor,
-  AccessibilityHelp,
-  Autoformat,
-  AutoImage,
-  Autosave,
-  BlockQuote,
-  Bold,
-  CloudServices,
-  Essentials,
-  Heading,
-  ImageBlock,
-  ImageCaption,
-  ImageInline,
-  ImageInsertViaUrl,
-  ImageResize,
-  ImageStyle,
-  ImageTextAlternative,
-  Indent,
-  IndentBlock,
-  Italic,
-  Link,
-  LinkImage,
-  List,
-  ListProperties,
-  MediaEmbed,
-  Paragraph,
-  PasteFromOffice,
-  SelectAll,
-  Table,
-  TableCaption,
-  TableCellProperties,
-  TableColumnResize,
-  TableProperties,
-  TableToolbar,
-  TextTransformation,
-  TodoList,
-  Underline,
-  Undo
-} from 'ckeditor5';
-import 'ckeditor5/ckeditor5.css';
-import translations from 'ckeditor5/translations/zh-cn.js';
-
-
-const isLayoutReady = ref(false);
-let config = ref(null);
-const editor = ClassicEditor;
-onMounted(() => {
-  config = {
-    toolbar: {
-      items: [
-        'undo',
-        'redo',
-        '|',
-        'selectAll',
-        '|',
-        'heading',
-        '|',
-        'bold',
-        'italic',
-        'underline',
-        '|',
-        'link',
-        'insertTable',
-        'blockQuote',
-        '|',
-        'bulletedList',
-        'numberedList',
-        'todoList',
-        'outdent',
-        'indent',
-        '|',
-        'accessibilityHelp'
-      ],
-      shouldNotGroupWhenFull: false
-    },
-    plugins: [
-      AccessibilityHelp,
-      Autoformat,
-      AutoImage,
-      Autosave,
-      BlockQuote,
-      Bold,
-      CloudServices,
-      Essentials,
-      Heading,
-      ImageBlock,
-      ImageCaption,
-      ImageInline,
-      ImageInsertViaUrl,
-      ImageResize,
-      ImageStyle,
-      ImageTextAlternative,
-      Indent,
-      IndentBlock,
-      Italic,
-      Link,
-      LinkImage,
-      List,
-      ListProperties,
-      MediaEmbed,
-      Paragraph,
-      PasteFromOffice,
-      SelectAll,
-      Table,
-      TableCaption,
-      TableCellProperties,
-      TableColumnResize,
-      TableProperties,
-      TableToolbar,
-      TextTransformation,
-      TodoList,
-      Underline,
-      Undo
-    ],
-    link: {
-      addTargetToExternalLinks: true,
-      defaultProtocol: 'https://',
-      decorators: {
-        toggleDownloadable: {
-          mode: 'manual',
-          label: 'Downloadable',
-          attributes: {
-            download: 'file'
-          }
-        }
-      }
-    },
-    list: {
-      properties: {
-        styles: true,
-        startIndex: true,
-        reversed: true
-      }
-    },
-    language: 'zh-cn',
-    placeholder: 'Type or paste your content here.',
-    table: {
-      contentToolbar: ['tableColumn', 'tableRow', 'mergeTableCells', 'tableProperties', 'tableCellProperties']
-    },
-    translations: [translations]
-  };
-  isLayoutReady.value = true;
-})
-// -------------------------
 
 // 校验规则
 const rules = {
@@ -258,7 +112,7 @@ defineExpose({validateForm})
           </a-col>
         </a-row>
         <a-form-item label="教育描述" name="edu_desc">
-          <ckeditor v-if="isLayoutReady" v-model="education.edu_desc" :editor="editor" :config="config"/>
+          <MEditor v-model:data="education.edu_desc" />
         </a-form-item>
       </a-collapse-panel>
     </a-collapse>

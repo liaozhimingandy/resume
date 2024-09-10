@@ -1,160 +1,13 @@
 <script setup>
-import {ref, onMounted, computed} from "vue";
+import {ref, computed} from "vue";
 import {DeleteOutlined} from "@ant-design/icons-vue";
 import locale from 'ant-design-vue/es/date-picker/locale/zh_CN';
 
 import {v4 as uuidv4} from "uuid";
 
 import {WorkStore} from "../stores/index.js";
+import MEditor from "@/components/MEditor.vue";
 
-
-// 富文本编辑器配置
-import {
-  ClassicEditor,
-  AccessibilityHelp,
-  Autoformat,
-  AutoImage,
-  Autosave,
-  BlockQuote,
-  Bold,
-  CloudServices,
-  Essentials,
-  Heading,
-  ImageBlock,
-  ImageCaption,
-  ImageInline,
-  ImageInsertViaUrl,
-  ImageResize,
-  ImageStyle,
-  ImageTextAlternative,
-  Indent,
-  IndentBlock,
-  Italic,
-  Link,
-  LinkImage,
-  List,
-  ListProperties,
-  MediaEmbed,
-  Paragraph,
-  PasteFromOffice,
-  SelectAll,
-  Table,
-  TableCaption,
-  TableCellProperties,
-  TableColumnResize,
-  TableProperties,
-  TableToolbar,
-  TextTransformation,
-  TodoList,
-  Underline,
-  Undo
-} from 'ckeditor5';
-import 'ckeditor5/ckeditor5.css';
-import translations from 'ckeditor5/translations/zh-cn.js';
-import Tags from "./Tags.vue";
-
-const isLayoutReady = ref(false);
-let config = ref(null);
-const editor = ClassicEditor;
-onMounted(() => {
-  config = {
-    toolbar: {
-      items: [
-        'undo',
-        'redo',
-        '|',
-        'selectAll',
-        '|',
-        'heading',
-        '|',
-        'bold',
-        'italic',
-        'underline',
-        '|',
-        'link',
-        'insertTable',
-        'blockQuote',
-        '|',
-        'bulletedList',
-        'numberedList',
-        'todoList',
-        'outdent',
-        'indent',
-        '|',
-        'accessibilityHelp'
-      ],
-      shouldNotGroupWhenFull: false
-    },
-    plugins: [
-      AccessibilityHelp,
-      Autoformat,
-      AutoImage,
-      Autosave,
-      BlockQuote,
-      Bold,
-      CloudServices,
-      Essentials,
-      Heading,
-      ImageBlock,
-      ImageCaption,
-      ImageInline,
-      ImageInsertViaUrl,
-      ImageResize,
-      ImageStyle,
-      ImageTextAlternative,
-      Indent,
-      IndentBlock,
-      Italic,
-      Link,
-      LinkImage,
-      List,
-      ListProperties,
-      MediaEmbed,
-      Paragraph,
-      PasteFromOffice,
-      SelectAll,
-      Table,
-      TableCaption,
-      TableCellProperties,
-      TableColumnResize,
-      TableProperties,
-      TableToolbar,
-      TextTransformation,
-      TodoList,
-      Underline,
-      Undo
-    ],
-    link: {
-      addTargetToExternalLinks: true,
-      defaultProtocol: 'https://',
-      decorators: {
-        toggleDownloadable: {
-          mode: 'manual',
-          label: 'Downloadable',
-          attributes: {
-            download: 'file'
-          }
-        }
-      }
-    },
-    list: {
-      properties: {
-        styles: true,
-        startIndex: true,
-        reversed: true
-      }
-    },
-    language: 'zh-cn',
-    placeholder: 'Type or paste your content here.',
-    table: {
-      contentToolbar: ['tableColumn', 'tableRow', 'mergeTableCells', 'tableProperties', 'tableCellProperties']
-    },
-    translations: [translations]
-  };
-  isLayoutReady.value = true;
-})
-
-// -------------------------
 // 当前激活项
 const activeKey = ref(null);
 
@@ -224,21 +77,21 @@ defineExpose({validateForm})
   <h4>告诉我您的工作经验</h4>
   <h6>在此部分中，列出您过去 10 年的相关工作经历以及日期。首先提及最近的工作经历。</h6>
   <a-divider/>
-  <a-form v-for="(model, index) in experiences" :model="model" :rules="rules" ref="formRefs">
+  <a-form v-for="(experience, index) in experiences" :model="experience" :rules="rules" ref="formRefs">
     <a-collapse v-model:activeKey="activeKey">
-      <a-collapse-panel :header="`${model.firm}-${model.title}`" :key="model.id">
+      <a-collapse-panel :header="`${experience.firm}-${experience.title}`" :key="experience.id">
         <template #extra>
           <DeleteOutlined @click="() => delItem(index)"/>
         </template>
         <a-row :span="24">
           <a-col :span="11">
             <a-form-item label="公司名称" name="firm">
-              <a-input placeholder="XXX科技有限公司" v-model:value="model.firm"></a-input>
+              <a-input placeholder="XXX科技有限公司" v-model:value="experience.firm"></a-input>
             </a-form-item>
           </a-col>
           <a-col :span="11" :offset="2">
             <a-form-item label="职位" name="title">
-              <a-input placeholder="首席执行官" v-model:value="model.title"></a-input>
+              <a-input placeholder="首席执行官" v-model:value="experience.title"></a-input>
             </a-form-item>
           </a-col>
         </a-row>
@@ -246,7 +99,7 @@ defineExpose({validateForm})
         <a-row>
           <a-col :span="11">
             <a-form-item label="开始日期" name="gmt_start">
-              <a-date-picker v-model:value="model.gmt_start" value-format="YYYY-MM-DD" :locale="locale"
+              <a-date-picker v-model:value="experience.gmt_start" value-format="YYYY-MM-DD" :locale="locale"
                              style="width: 100%"/>
             </a-form-item>
           </a-col>
@@ -255,21 +108,21 @@ defineExpose({validateForm})
           </a-col>
           <a-col :span="11">
             <a-form-item label="结束日期" name="gmt_end">
-              <a-date-picker v-model:value="model.gmt_end" value-format="YYYY-MM-DD" :locale="locale"
+              <a-date-picker v-model:value="experience.gmt_end" value-format="YYYY-MM-DD" :locale="locale"
                              style="width: 100%"/>
             </a-form-item>
           </a-col>
         </a-row>
         <a-form-item label="我还在这儿工作" name="is_doing">
-          <a-checkbox value="true" name="type" v-model:value="model.is_doing">
+          <a-checkbox value="true" name="type" v-model:value="experience.is_doing">
             目前仍然在职
           </a-checkbox>
         </a-form-item>
         <a-form-item label="工作描述" name="desc">
-          <ckeditor v-if="isLayoutReady" v-model="model.desc" :editor="editor" :config="config"/>
+           <MEditor v-model:data="experience.desc" />
         </a-form-item>
         <a-form-item label="使用到的技术">
-          <Tags v-model:tags="model.techs" tips="请使用到的技术" />
+          <Tags v-model:tags="experience.techs" tips="请使用到的技术" />
         </a-form-item>
       </a-collapse-panel>
     </a-collapse>

@@ -3,10 +3,10 @@ import {ref, computed} from 'vue';
 
 import {v4 as uuidv4} from 'uuid';
 
-
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import Default from "../templates/Default.vue";
+import Footer from "@/components/Footer.vue";
 
 const pdfContent = ref(null);
 
@@ -56,7 +56,9 @@ const version = computed(() => `version:${import.meta.env.VITE_APP_VERSION}`);
           <Default/>
         </div>
       </a-layout-content>
-       <a-layout-footer style="width: 100%">{{ version }}</a-layout-footer>
+       <a-layout-footer>
+         <Footer />
+       </a-layout-footer>
     </a-layout>
   </div>
 </template>
