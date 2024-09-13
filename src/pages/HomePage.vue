@@ -1,4 +1,4 @@
-<script setup>
+<script lang="ts" setup>
 import {ref} from "vue";
 
 import {AntDesignOutlined, MailOutlined, BugFilled} from '@ant-design/icons-vue';
@@ -43,6 +43,7 @@ const activeKey = ref('1');
       </a-flex>
     </a-layout-header>
     <a-layout-content>
+       <a-alert message="温馨提示" type="success" description="数据保持到你的电脑本地,请放心使用!" closable show-icon />
       <a-tabs v-model:activeKey="activeKey" centered size="large" animated>
         <a-tab-pane key="1" tab="我的简历">
           <a-row justify="center" style="margin: 8px">
