@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import {ref} from "vue";
+import {reactive, ref} from "vue";
 
 import {AntDesignOutlined, MailOutlined, BugFilled} from '@ant-design/icons-vue';
 
@@ -7,6 +7,24 @@ import Default from "../templates/Default.vue";
 import Footer from "@/components/Footer.vue";
 
 const activeKey = ref('1');
+const jobs = reactive([
+      {
+        "href": "https://www.51job.com/",
+        "title": "前程无忧"
+      },
+      {
+        "href": "https://www.liepin.com/",
+        "title": "猎聘"
+      },
+      {
+        "href": "https://www.zhaopin.com/",
+        "title": "智联招聘"
+      },
+      {
+        "href": "https://www.zhipin.com/",
+        "title": "Boss直聘"
+      }
+    ]);
 
 </script>
 
@@ -42,8 +60,8 @@ const activeKey = ref('1');
         </a-dropdown>
       </a-flex>
     </a-layout-header>
-    <a-layout-content>
-       <a-alert message="温馨提示" type="success" description="数据保持到你的电脑本地,请放心使用!" closable show-icon />
+    <a-layout-content style="min-height: 580px">
+      <a-alert message="温馨提示" type="success" description="数据保持到你的电脑本地,请放心使用!" closable show-icon />
       <a-tabs v-model:activeKey="activeKey" centered size="large" animated>
         <a-tab-pane key="1" tab="我的简历">
           <a-row justify="center" style="margin: 8px">
@@ -94,6 +112,13 @@ const activeKey = ref('1');
               />
             </a-col>
           </a-row>
+        </a-tab-pane>
+        <a-tab-pane key="3" tab="招聘网站">
+         <a-row justify="center">
+           <a-col :span="2" v-for="job in jobs">
+             <a-button type="text" :href="job.href" size="large" target="_blank">{{ job.title }}</a-button>
+           </a-col>
+         </a-row>
         </a-tab-pane>
       </a-tabs>
     </a-layout-content>

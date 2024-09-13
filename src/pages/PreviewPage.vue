@@ -3,14 +3,14 @@ import {ref, computed} from 'vue';
 
 import {v4 as uuidv4} from 'uuid';
 
-import {downloadPDF} from '@/utils/html2pdf.ts'
+import {downloadPDF, generatePdf} from '@/utils/html2pdf.ts'
 import Default from "../templates/Default.vue";
 import Footer from "@/components/Footer.vue";
 
 const pdfContent = ref(null);
 
 const exportPDFv2 = () => {
-  downloadPDF(pdfContent.value, 'resume-' + uuidv4(), false, ()=>{})
+  generatePdf(pdfContent.value, 'resume-' + uuidv4(), false, ()=>{})
 }
 
 const version = computed(() => `version:${import.meta.env.VITE_APP_VERSION}`);
