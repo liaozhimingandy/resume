@@ -94,7 +94,7 @@ onMounted(() => {
 
 <template>
   <a-modal ref="modalRef" v-model:open="open" :wrap-style="{ overflow: 'hidden' }" :footer="null">
-    <a-spin tip="正在生成..." :spinning="spinning">
+    <a-spin tip="正在生成...请耐心等待" :spinning="spinning">
       <a-skeleton :loading="spinning" active avatar/>
       <a-list size="small" :data-source="items" :bordered="false">
         <template #renderItem="{ item }">

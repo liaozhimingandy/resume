@@ -61,7 +61,7 @@ const jobs = reactive([
       </a-flex>
     </a-layout-header>
     <a-layout-content style="min-height: 580px">
-      <a-alert message="温馨提示" type="success" description="数据保持到你的电脑本地,请放心使用!" closable show-icon />
+      <a-alert message="数据保持到你的电脑本地,请放心使用!" type="success" closable show-icon />
       <a-tabs v-model:activeKey="activeKey" centered size="large" animated>
         <a-tab-pane key="1" tab="我的简历">
           <a-row justify="center" style="margin: 8px">
@@ -115,7 +115,7 @@ const jobs = reactive([
         </a-tab-pane>
         <a-tab-pane key="3" tab="招聘网站">
          <a-row justify="center">
-           <a-col :span="2" v-for="job in jobs">
+           <a-col :xs="12" :sm="8" :md="2" :lg="2" :xl="2" v-for="job in jobs">
              <a-button type="text" :href="job.href" size="large" target="_blank">{{ job.title }}</a-button>
            </a-col>
          </a-row>

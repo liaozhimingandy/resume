@@ -5,6 +5,8 @@ import router from "./router";
 import { CkeditorPlugin } from '@ckeditor/ckeditor5-vue';
 import piniaPluginPersist from 'pinia-plugin-persist'
 
+import 'nprogress/nprogress.css' // 引入样式
+
 import App from './App.vue'
 // 创建Pinia实例
 const pinia = createPinia()
