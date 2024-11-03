@@ -39,7 +39,6 @@
 import {ref} from 'vue'
 
 import {notification} from "ant-design-vue";
-
 const [api, contextHolder] = notification.useNotification();
 
 import BasicInfo from "../components/BasicInfo.vue";

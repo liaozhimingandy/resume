@@ -3,7 +3,7 @@ import {reactive, ref} from "vue";
 
 import {AntDesignOutlined, MailOutlined, BugFilled} from '@ant-design/icons-vue';
 
-import Default from "../templates/Default.vue";
+import Default from "@/templates/Default.vue";
 import Footer from "@/components/Footer.vue";
 
 const activeKey = ref('1');
@@ -65,7 +65,7 @@ const jobs = reactive([
       <a-tabs v-model:activeKey="activeKey" centered size="large" animated>
         <a-tab-pane key="1" tab="我的简历">
           <a-row justify="center" style="margin: 8px">
-            <a-col :span="8">
+            <a-col :xs="24" :sm="14" :md="8" :lg="8" :xl="8">
               <a-card hoverable style="width: 240px;">
                 <template #cover>
                   <div class="cover-container">

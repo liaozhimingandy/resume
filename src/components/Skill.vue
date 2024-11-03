@@ -4,7 +4,7 @@ import {reactive, ref, computed} from "vue";
 import {v4 as uuidv4} from 'uuid';
 import {DeleteOutlined} from "@ant-design/icons-vue";
 
-import {SkillStore} from '../stores';
+import {SkillStore} from '../stores/index.js';
 
 // 技能信息
 // 当前激活项

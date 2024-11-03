@@ -100,4 +100,4 @@ const AboutMeStore = defineStore({
     },
 });
 
-export {BasicInfoStore, SkillStore, EduStore, AboutMeStore, WorkStore}
+export {BasicInfoStore, SkillStore, EduStore, AboutMeStore, WorkStore};

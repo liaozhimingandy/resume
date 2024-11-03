@@ -1,9 +1,12 @@
 // index.js
-import 'axios'
+import {ref} from 'vue';
+import 'axios';
 import axios from "axios";
+import { message } from 'ant-design-vue';
 
-const instance = axios.create({
-    baseURL: process.env.VITE_APP_BASE_URL, // 所有的请求地址前缀部分,
+//-------------------------1.创建axios实例-----------------------
+const instance=axios.create({
+baseURL: process.env.VITE_APP_BASE_URL, // 所有的请求地址前缀部分,
     timeout: 5000, // 请求超时时间
     withCredentials: true, // 异步请求携带cookie
     headers: {
@@ -11,63 +14,95 @@ const instance = axios.create({
     }
 });
 
-instance.defaults.referrerPolicy = 'no-referrer';
-
-// 请求拦截器
+//-------------------------2.请求拦截-----------------------
 instance.interceptors.request.use(
-  (config) => {
-    // 在请求发送之前做一些处理，例如添加 token
-    if(config.headers) {
-        config.headers.Authorization = `Bearer ${localStorage.getItem('token')}`;
+    config => {
+        let token = sessionStorage.getItem('token');
+        if (token) {
+            config.headers['token'] = token
+        }
+        //加载loading
+        addLoading();
+        return config;
+    },
+    error => {
+        //请求发生错误，抛出异常
+        Promise.reject(error);
     }
-    return config;
-  },
-  (error) => {
-    // 对请求错误做些什么
-    return Promise.reject(error);
-  }
 );
 
-// 异常拦截处理器
-const errorHandler = (error) => {
-    // 对响应错误做些什么
-	// console.log(error.response);
-
-	if (error.message === 'Network Error') {
-		console.error('系统异常')
-	}
-	if (error.response) {
-        const data = error.response.data;
-		// 从本地存储加载token
-		const access_token = localStorage.getItem('access_token');
-
-		if (error.response?.status === 403) {
-			console.error(data.msg)
-			// eslint-disable-next-line no-mixed-spaces-and-tabs
-    	}
-		// 判断http状态是否是401
-		if (error.response?.status === 401) {
-			// 调接口，刷新token
-			error.config.headers.Authorization = access_token;
-		}
-
-	}
-	return Promise.reject(error)
-}
-
-// 响应拦截器
+// -------------------------3.响应拦截-----------------------
 instance.interceptors.response.use(
-  (response) => {
-    // 对响应数据做一些处理
-    return response.data;
+  res => {
+    // 取消加载 loading
+    cancelLoading();
+    return res;
   },
-  errorHandler,
+  error => {
+    // 取消加载 loading
+    cancelLoading();
+    if (error && error.response) {
+      const status = error.response.status
+      switch (status) {
+        case 400:
+          message.error("请求错误");
+          break;
+        case 401:
+          message.error("未授权，请重新登录");
+          break;
+        case 403:
+          message.error("登录过期，请重新登录");
+          break;
+        case 404:
+          message.error("请求错误，未找到相应的资源");
+          break;
+        case 408:
+          message.error("请求超时");
+          break;
+        case 500:
+          message.error("服务器错误");
+          break;
+        case 504:
+          message.error("网络超时");
+          break;
+        default:
+          message.error("请求失败");
+      }
+    } else {
+      if (JSON.stringify(error).includes("timeout")) {
+        error.code = "TIMEOUT";
+        error.message = "服务器响应超时，请刷新页面";
+      }
+    }
+    return Promise.reject(error);
+  },
+
 );
 
-export const request = (
-    url,
-    method= 'GET',
-    submitData={},
-) => {
-    return instance({url: url, method, [method.toUpperCase() === "GET" ? "params" : "data"]:submitData})
+// -------------------------4.配置全局loading-----------------------
+let loadCount = 0;
+let loadingInstance = ref(null);
+// 加载loading
+const addLoading = () => {
+  loadCount++;
+  if (loadCount === 1) {
+    // loadingInstance.value = ElLoading.service({
+    //   fullscreen: false,
+    //   text: "正在请求数据中....",
+    //   background: "rgba(0, 0, 0, 0)",
+    // });
+      console.info("数据正在加载...")
+  }
+
 };
+// 取消加载loading
+const cancelLoading = () => {
+  loadCount--;
+  if (loadCount === 0) {
+    // loadingInstance.value.close();
+      console.info("数据加载完成...")
+  };
+};
+// -------------------------配置全局loading-----------------------
+// 5.导出 axios 实例
+export default instance;

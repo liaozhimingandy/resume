@@ -74,8 +74,8 @@ defineExpose({validateForm})
 </script>
 
 <template>
-  <h4>告诉我您的工作经验</h4>
-  <h6>在此部分中，列出您过去 10 年的相关工作经历以及日期。首先提及最近的工作经历。</h6>
+  <h3>告诉我您的工作经验</h3>
+  <h4>在此部分中，列出您过去 10 年的相关工作经历以及日期。首先提及最近的工作经历。</h4>
   <a-divider/>
   <a-form v-for="(experience, index) in experiences" :model="experience" :rules="rules" ref="formRefs">
     <a-collapse v-model:activeKey="activeKey">

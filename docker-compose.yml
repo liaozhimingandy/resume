@@ -1,0 +1,18 @@
+version: '3'
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev  # 指定 Dockerfile 的路径
+      labels:
+        com.alsoapp.description: "vite的测试环境"
+        com.alsoapp.version: "1.0.0"
+    ports:
+      - "5173:5173"
+    volumes:
+      - .:/app
+      - /app/node_modules
+    stdin_open: true
+    tty: true
+    environment:
+      - CHOKIDAR_USEPOLLING=true  # 如果在某些环境中遇到文件监视问题，使用轮询
