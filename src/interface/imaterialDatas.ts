@@ -13,10 +13,10 @@ import {
   IWORKEXPERIENCE,
   IWORKSDISPLAY,
   ICUSTOM1
-} from './model';
+} from './imaterialItems';
 
 // 模块数据结构定义
-interface IMODELDATAJSON {
+interface ImaterialDatas {
   [props: string]:
     | IRESUMETITLE
     | IBASEINFO
@@ -34,4 +34,4 @@ interface IMODELDATAJSON {
     | ICUSTOM1;
 }
 
-export default IMODELDATAJSON;
+export default ImaterialDatas;

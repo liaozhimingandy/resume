@@ -3,8 +3,8 @@ import {defineStore} from "pinia";
 import {ref} from "vue";
 import cloneDeep from 'lodash/cloneDeep';
 import RESUME_JSON from "../data/resume";
-import IRESUMEJSON from "../interface/resume";
-import {IMATERIALITEM} from "../interface/material";
+import IRESUMEJSON from "../interface/iresume";
+import {IMaterial} from "../interface/IMaterial";
 
 export const useResumeJsonStore = defineStore("resumeJson", () => {
     let resume_json = cloneDeep(RESUME_JSON); // 新的简历数据
@@ -22,7 +22,7 @@ export const useResumeJsonStore = defineStore("resumeJson", () => {
     }
 
     // 新增简历的组件信息
-    function addComponent(data: IMATERIALITEM) {
+    function addComponent(data: IMaterial) {
         resumeJsonStore.value.COMPONENTS.push(data);
     }
 

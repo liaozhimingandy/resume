@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import {IMATERIALITEM} from "../../interface/material";
+import {IMaterial} from "../../interface/IMaterial";
 import {ComponentPublicInstance, reactive, ref, watch} from "vue";
 import appStore from "../../stores/app";
 import {storeToRefs} from 'pinia';
@@ -10,7 +10,7 @@ import {v4 as uuidv4} from 'uuid';
 
 // 需要传入的参数
 const props = withDefaults(defineProps<{
-  item: IMATERIALITEM;
+  item: IMaterial;
   components: any;
   isPreview: Boolean;
 }>(), {
@@ -82,7 +82,7 @@ const classicalAdd = () => {
 }
 
 // 添加样式
-const getDynamicStyle = (item: IMATERIALITEM) => {
+const getDynamicStyle = (item: IMaterial) => {
   return {
     width: item.cptWidth
   };

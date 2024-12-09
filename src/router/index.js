@@ -10,6 +10,7 @@ import TestPage from "../pages/TestPage.vue";
 import HomePage from "../pages/HomePage.vue";
 import PdfPreviewPage from "../pages/PdfPreviewPage/index.vue";
 import DesignerPage from "../pages/designer/index.vue";
+import SetupPageV2 from "@/pages/SetupPageV2.vue";
 
 // 进度条配置（可选）
 NProgress.configure({
@@ -29,6 +30,7 @@ NProgress.configure({
 const routes = [
     {path: '/', name: 'home', component: HomePage, meta: {title: "首页"}},
     {path: '/setup/', name: 'setup', component: Setup, meta: {title: "创建简历"}},
+    {path: '/setup2/:template_id/', name: 'setup2', component: SetupPageV2, meta: {title: "创建简历"}},
     {path: '/preview/', name: 'preview', component: PreviewPage, meta: {title: "预览简历"}},
     {path: '/preview_v2/', name: 'preview_v2', component: PdfPreviewPage, meta: {title: "预览简历"}},
     {path: '/test/', name: 'test', component: TestPage, meta: {title: "测试页"}},

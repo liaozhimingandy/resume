@@ -4,10 +4,15 @@ import Components from 'unplugin-vue-components/vite'
 import {AntDesignVueResolver} from 'unplugin-vue-components/resolvers';
 import AutoImport from 'unplugin-auto-import/vite'
 import path from 'path'
+import {version} from './package.json';
+
 
 // https://vitejs.dev/config/
 export default defineConfig({
     base: '/', // 这里保持和你你的 GitHub 仓库名一致
+    define: {
+        __APP_VERSION__: JSON.stringify(version),
+    },
     server: {
         host: process.env.VITE_HOST || '0.0.0.0',
     },

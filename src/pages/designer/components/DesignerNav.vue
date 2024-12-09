@@ -115,7 +115,7 @@ const cancleJsonDialog = () => {
     </div>
     <div>
       <a-space>
-        <a-button @click="exportJSON" type="dashed">导出数据</a-button>
+        <a-button @click="exportJSON" type="primary">导出数据</a-button>
         <a-button @click="importJson" type="dashed">导入数据</a-button>
         <a-button @click="reset" type="dashed">重置</a-button>
       </a-space>

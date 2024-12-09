@@ -86,6 +86,12 @@ const delEducation = (index: number): void => {
                     <a-switch v-model:checked="modelItem.data.isShow.specialized"/>
                   </a-space>
                 </a-form-item>
+                <a-form-item label="主修课程">
+                  <a-space>
+                    <a-input v-model:value="item.majorCourse"/>
+                    <a-switch v-model:checked="modelItem.data.isShow.majorCourse"/>
+                  </a-space>
+                </a-form-item>
               </a-form>
             </a-collapse-panel>
           </a-collapse>

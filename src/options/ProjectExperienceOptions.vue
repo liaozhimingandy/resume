@@ -5,6 +5,7 @@ import CommonOptions from "./CommonOptions.vue";
 import {ref} from "vue";
 import useDesignSelectModelItem from "../hooks/material/useDesignSelectModelItem.js";
 import {DeleteOutlined, PlusOutlined} from "@ant-design/icons-vue";
+import CommonTitleOptions from "@/options/CommonTitleOptions.vue";
 
 const activeKey = ref<string>('1');
 defineOptions({name: 'PROJECT_EXPERIENCE_OPTIONS'});
@@ -36,7 +37,7 @@ const delProjectExper = (index: number): void => {
   <a-tabs v-model:activeKey="activeKey" centered size="large" animated>
     <a-tab-pane key="1" tab="样式设置">
       <!-- 标题样式属性 -->
-      <CommonOptions></CommonOptions>
+      <CommonTitleOptions />
       <!-- 公共样式属性 -->
       <CommonOptions/>
     </a-tab-pane>

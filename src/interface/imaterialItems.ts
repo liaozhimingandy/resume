@@ -1,3 +1,5 @@
+// 所有组件列表
+
 // 定义样式接口
 interface ISTYLE {
   height?: string;

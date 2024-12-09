@@ -10,7 +10,8 @@ RUN npm install
 
 # 复制项目文件并构建
 COPY . .
-RUN npm run build
+RUN npm run build \
+    && cp dist/index.html dist/404.html
 
 # 生产阶段：使用 Nginx 作为静态文件服务器
 FROM nginx:alpine

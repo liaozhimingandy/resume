@@ -1,6 +1,6 @@
 // 简历模板的数据
 
-import IRESUMEJSON from '../interface/resume';
+import IRESUMEJSON from '../interface/iresume';
 
 // 简历模板数据
 const RESUME_JSON: IRESUMEJSON = {

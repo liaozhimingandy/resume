@@ -1,8 +1,9 @@
 <script lang="ts" setup>
 
-import {IJOBINTENTION} from "../../../interface/model";
-import IMODELSTYLE from "../../../interface/modelStyle";
+import {IJOBINTENTION} from "../../../interface/imaterialItems";
+import IMaterialStyle from "../../../interface/IMaterialStyle";
 import ModelTitle from "../../ModelTitle/ModelTitle1/index.vue"
+import {computed} from "vue";
 
 defineOptions({
   name: 'JOB_INTENTION_1'
@@ -10,8 +11,10 @@ defineOptions({
 
 const props = defineProps<{
   modelData: IJOBINTENTION; // 模块数据
-  modelStyle: IMODELSTYLE; // 模块样式
+  modelStyle: IMaterialStyle; // 模块样式
 }>();
+
+const left = computed(()=> (Number(props.modelStyle.pLeftRight.split('px')[0]))+ 23 + 'px');
 </script>
 
 <template>
@@ -21,17 +24,34 @@ const props = defineProps<{
     <slot name="ModelTitle"></slot>
     <!-- 求职意向 -->
     <!-- 求职类型 -->
-    <a-flex justify="space-between" style="margin-top: 8px">
-      <a-typography-text v-show="modelData.isShow.jobSearchType" class="info">{{ modelData.jobSearchType }}</a-typography-text>
-      <!-- 意向岗位 -->
-      <a-typography-text v-show="modelData.isShow.intendedPositions" class="info">{{ modelData.intendedPositions }}</a-typography-text>
-     <!-- 意向城市 -->
-      <a-typography-text v-show="modelData.isShow.intendedCity" class="info">{{ modelData.intendedCity }}</a-typography-text>
-       <!-- 期望薪资 -->
-      <a-typography-text v-show="modelData.isShow.expectSalary" class="info">{{ modelData.expectSalary }}</a-typography-text>
-      <!-- 求职状态 -->
-      <a-typography-text v-show="modelData.isShow.jobStatus" class="info">{{ modelData.jobStatus }}</a-typography-text>
-    </a-flex>
+    <div class="content">
+      <a-flex justify="space-between">
+        <a-typography-title v-show="modelData.isShow.jobSearchType" class="info">{{
+            modelData.jobSearchType
+          }}
+        </a-typography-title>
+        <!-- 意向岗位 -->
+        <a-typography-title v-show="modelData.isShow.intendedPositions" class="info">{{
+            modelData.intendedPositions
+          }}
+        </a-typography-title>
+        <!-- 意向城市 -->
+        <a-typography-title v-show="modelData.isShow.intendedCity" class="info">{{
+            modelData.intendedCity
+          }}
+        </a-typography-title>
+        <!-- 期望薪资 -->
+        <a-typography-title v-show="modelData.isShow.expectSalary" class="info">{{
+            modelData.expectSalary
+          }}
+        </a-typography-title>
+        <!-- 求职状态 -->
+        <a-typography-title v-show="modelData.isShow.jobStatus" class="info">{{
+            modelData.jobStatus
+          }}
+        </a-typography-title>
+      </a-flex>
+    </div>
   </div>
 </template>
 
@@ -43,6 +63,21 @@ const props = defineProps<{
   padding-right: v-bind('modelStyle.pLeftRight');
   margin-top: v-bind('modelStyle.mTop');
   margin-bottom: v-bind('modelStyle.mBottom');
+
+  &::before {
+    content: '';
+    position: absolute;
+    width: 1px;
+    height: 100%;
+    background-color: v-bind('modelStyle.themeColor');
+    left: v-bind('left');
+    top: 5px;
+  }
+}
+
+.content{
+  padding-left: 30px;
+  padding-top: 8px;
 }
 
 .info {

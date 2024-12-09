@@ -2,7 +2,7 @@
 
 import ColorPickerCustom from "../components/ColorPicker/ColorPickerCustom.vue";
 import useDesignSelectModelItem from '@/hooks/material/useDesignSelectModelItem';
-import {useFontSizeList} from "../hooks/useFontSizeList.js";
+import {useFontSizeList} from "@/hooks/useFontSizeList.js";
 import {computed} from "vue";
 
 // 选中的模块
@@ -21,12 +21,12 @@ const fontWeightList = [100, 200, 300, 400, 500, 600, 700, 800, 900].map((item,)
 
 
 // 上外边距
-const handleChange = (value: number): void => {
-    modelItem.style.modelMarginTop = value + 'px';
+const handleChangeMTop = (value: number): void => {
+    modelItem.style.mTop = value + 'px';
 };
 // 下外边距
 const handleChangeMBottom = (value: number): void => {
-    modelItem.style.modelMarginBottom = value + 'px';
+    modelItem.style.mBottom = value + 'px';
 };
 const handleChangePTop = (value: number): void => {
     modelItem.style.pTop = value + 'px';
@@ -55,16 +55,16 @@ const handleChangePLeftRight = (value: number): void => {
       <a-select v-model:value="modelItem.style.textFontWeight" :options='fontWeightList'/>
     </a-form-item>
     <!-- 模块上下边距设置 -->
-    <a-form-item label="模块上外边距">
-      <a-input-number v-model:value="modelItem.style.modelMarginTop"
+    <a-form-item label="模块外上边距">
+      <a-input-number v-model:value="modelItem.style.mTop"
                       max="100" min="-100" default-value="0px"
                       :formatter="value => `${value}`"
                       :parser="value => value.replace('px', '')"
                       style="width: 100%"
-                      @change="handleChange"></a-input-number>
+                      @change="handleChangeMTop"></a-input-number>
     </a-form-item>
-    <a-form-item label="模块下外边距">
-      <a-input-number v-model:value="modelItem.style.modelMarginBottom"
+    <a-form-item label="模块外下边距">
+      <a-input-number v-model:value="modelItem.style.mBottom"
                       max="100" min="-100" default-value="0px"
                       :formatter="value => `${value}`"
                       :parser="value => value.replace('px', '')"
@@ -72,7 +72,7 @@ const handleChangePLeftRight = (value: number): void => {
                       @change="handleChangeMBottom"></a-input-number>
     </a-form-item>
     <!-- 模块上内边距 -->
-    <a-form-item label="模块上内边距">
+    <a-form-item label="模块内上边距">
       <a-input-number v-model:value="modelItem.style.pTop"
                       max="100" min="-100" default-value="0px"
                       :formatter="value => `${value}`"
@@ -81,7 +81,7 @@ const handleChangePLeftRight = (value: number): void => {
                       @change="handleChangePTop"></a-input-number>
     </a-form-item>
     <!-- 模块下内边距 -->
-    <a-form-item label="模块下内边距">
+    <a-form-item label="模块内下边距">
       <a-input-number v-model:value="modelItem.style.pBottom"
                       max="100" min="-100" default-value="0px"
                       :formatter="value => `${value}`"
@@ -91,7 +91,7 @@ const handleChangePLeftRight = (value: number): void => {
       ></a-input-number>
     </a-form-item>
     <!--    左右内边距-->
-    <a-form-item label="左右内边距">
+    <a-form-item label="模块内左右边距">
       <a-input-number v-model:value="modelItem.style.pLeftRight" max="100" min="-100"
                       :formatter="value => `${value}`"
                       :parser="value => value.replace('px', '')"

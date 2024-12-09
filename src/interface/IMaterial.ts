@@ -1,6 +1,7 @@
-import IMODELSTYLE from './modelStyle';
+import IMaterialStyle from './IMaterialStyle';
+import ImaterialDatas from "./imaterialDatas";
 
-interface IMATERIALITEM {
+interface IMaterial {
   keyId: string;
   model: string;
   cptName: string; // 组件名
@@ -13,12 +14,12 @@ interface IMATERIALITEM {
   cptWidth: string; // 组件宽度
   layout: string; // 布局在左侧还是右侧
   show: boolean; // 组件是否显示
-  style: IMODELSTYLE | any;
-  data: any;
+  style: IMaterialStyle | any; //样式
+  data: ImaterialDatas | any; // 数据
 }
 // 物料左侧数据
 interface IMSTERIALLISTJSON {
-  [propName: string]: Array<IMATERIALITEM>;
+  [propName: string]: Array<IMaterial>;
 }
 
-export { IMSTERIALLISTJSON, IMATERIALITEM };
+export { IMSTERIALLISTJSON, IMaterial };

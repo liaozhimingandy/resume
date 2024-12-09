@@ -13,10 +13,11 @@ const getResumeData = async () => {
   // 同步数据到store
   appStore.useResumeJsonStore.updateResumeJsonData(TEMPLATE_JSON);
 }
-getResumeData();
+// 若从页面接跳转,有数据，直接同步,若刷新页面,则会没有数据,数据保存到内存
+// getResumeData();
 
 import custom from '@/templates/custom/index.vue';
-import IRESUMEJSON from "@/interface/resume";
+import IRESUMEJSON from "@/interface/iresume";
 // 监听内容元素高度变化，绘制分割线
 const htmlContentPdf = ref<any>(null);
 const html2Pdf = ref<any>(null); // 获取元素节点
@@ -64,6 +65,6 @@ const customProps = ref({
   </a-layout>
 </template>
 
-<style lang="less" scoped>
+<style scoped>
 
 </style>

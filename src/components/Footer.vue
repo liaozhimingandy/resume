@@ -1,7 +1,6 @@
 <script setup>
-import {computed} from "vue";
 
-const version = computed(() => `version:${import.meta.env.VITE_APP_VERSION}`);
+const version = __APP_VERSION__;
 </script>
 
 <template>

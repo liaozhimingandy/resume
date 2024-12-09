@@ -34,7 +34,7 @@
                     :style="{ top: `${1128 + 1132 * index}px` }"
                 >
                   <a-divider style="border-color: red" dashed>
-                    {{ index + 1 }}/{{ linesNumber }}-如果分割线遮挡内容，请通过调整模块上下边距以显示内容!
+                    <span style="color: #027AFE">{{ index + 1 }}/{{ linesNumber }}-如果分割线遮挡内容，请通过调整模块上下边距以显示内容!</span>
                   </a-divider>
                 </div>
               </template>
@@ -46,7 +46,7 @@
       <a-layout-sider width="300" :style="{'background-color': '#E9EBEE'}">
         <div :key="refreshUuid" style="height: calc(100vh - 130px);">
           <a-flex justify="center">
-            <Title :title="cptTitle==='' ?  'test' : cptTitle"></Title>
+            <Title :title="cptTitle==='' ?  '暂无' : cptTitle"></Title>
           </a-flex>
           <c-scrollbar
               trigger="hover"
@@ -73,7 +73,7 @@ import {nextTick, ref, onMounted, onBeforeUnmount, onBeforeUpdate} from 'vue';
 import appStore from '@/stores/app';
 import {storeToRefs} from 'pinia';
 import DesignerNav from "./components/DesignerNav.vue";
-import IRESUMEJSON from "@/interface/resume";
+import IRESUMEJSON from "@/interface/iresume";
 import {useRoute} from "vue-router";
 
 const {setUuid} = appStore.useUuidStore;

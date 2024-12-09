@@ -30,7 +30,7 @@ const {modelItem} = useDesignSelectModelItem();
         </a-form-item>
         <a-form-item label="简介">
           <a-textarea v-model:value="modelItem.data.abstract"
-                      show-count allow-clear maxlength="255"
+                      show-count allow-clear maxlength=255
                       :auto-size="{ minRows: 2, maxRows: 5 }" />
           <a-switch v-model:checked="modelItem.data.isShow.abstract"/>
         </a-form-item>

@@ -13,7 +13,7 @@ import InternshipExperienceOptions from '@/options/InternshipExperienceOptions.v
 import SelfEvalutionOptions from '@/options/SelfEvaluationOptions.vue';
 import WorksDisplayOptions from "@/options/WorksDisplayOptions.vue";
 import ResumeTitleOptions from '@/options/ResumeTitleOptions.vue';
-import CustomOptionsVue from '@/options/CustomOptions.vue';
+import CustomOptions from '@/options/CustomOptions.vue';
 
 // 定义属性组件列表
 const optionsComponents: any = {
@@ -30,6 +30,6 @@ const optionsComponents: any = {
   SELF_EVALUATION_OPTIONS: SelfEvalutionOptions,
   WORKS_DISPLAY_OPTIONS: WorksDisplayOptions,
   RESUME_TITLE_OPTIONS: ResumeTitleOptions,
-  CUSTOM_OPTIONS_1: CustomOptionsVue,
+  CUSTOM_OPTIONS: CustomOptions,
 };
 export default optionsComponents;

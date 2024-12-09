@@ -34,14 +34,13 @@ const delInterExper = (index: number): void => {
   modelItem.data.LIST.splice(index, 1);
   activeKeyCollapse.value = modelItem.data.LIST.length.toString();
 };
-
 </script>
 
 <template>
   <a-tabs v-model:activeKey="activeKey" centered size="large" animated>
     <a-tab-pane key="1" tab="样式设置">
       <!-- 标题样式属性 -->
-      <CommonTitleOptions></CommonTitleOptions>
+      <CommonTitleOptions />
       <!-- 公共样式属性 -->
       <CommonOptions/>
     </a-tab-pane>

@@ -1,18 +1,17 @@
 <script lang="ts" setup>
-import {ref} from 'vue';
 
 interface ITitle {
   title?: string;
   showCollapse?: boolean;
 }
 
-const pros = withDefaults(defineProps<ITitle>(), {
+withDefaults(defineProps<ITitle>(), {
   title: '模块选择'
 });
 </script>
 
 <template>
-  <h1>{{ title }}</h1>
+  <a-typography-text>{{ title }}</a-typography-text>
 </template>
 
 <style scoped>

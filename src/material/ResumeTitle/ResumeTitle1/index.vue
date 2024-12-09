@@ -1,10 +1,10 @@
 <script lang="ts" setup>
-import {IRESUMETITLE} from '@/interface/model';
-import IMODELSTYLE from '@/interface/modelStyle';
+import {IRESUMETITLE} from '@/interface/imaterialItems';
+import IMaterialStyle from '@/interface/IMaterialStyle';
 
 defineProps<{
   modelData: IRESUMETITLE;
-  modelStyle: IMODELSTYLE; // 模块样式
+  modelStyle: IMaterialStyle; // 模块样式
 }>();
 </script>
 
@@ -29,9 +29,9 @@ defineProps<{
     display: flex;
     .left {
       min-height: 32px;
-      width: 36px;
-      background-color: #079cfa;
-      margin-right: 18px;
+      width: 54px;
+      background-color: #027AFF;
+      margin-right: 0;
     }
 
     .editor-resume {

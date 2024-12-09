@@ -3,7 +3,7 @@ import {ref, computed} from 'vue';
 
 import {v4 as uuidv4} from 'uuid';
 
-import {downloadPDF, generatePdf} from '@/utils/html2pdf.ts'
+import {generatePdf} from '@/utils/html2pdf.ts'
 import Default from "../templates/Default.vue";
 import Footer from "@/components/Footer.vue";
 

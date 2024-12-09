@@ -1,50 +1,51 @@
 <script lang="ts" setup>
 import {reactive, ref} from "vue";
 
-import {AntDesignOutlined, MailOutlined, BugFilled} from '@ant-design/icons-vue';
+import {FileDoneOutlined, MailOutlined, BugFilled} from '@ant-design/icons-vue';
 
 import Default from "@/templates/Default.vue";
 import Footer from "@/components/Footer.vue";
 
 const activeKey = ref('1');
 const jobs = reactive([
-      {
-        "href": "https://www.51job.com/",
-        "title": "前程无忧"
-      },
-      {
-        "href": "https://www.liepin.com/",
-        "title": "猎聘"
-      },
-      {
-        "href": "https://www.zhaopin.com/",
-        "title": "智联招聘"
-      },
-      {
-        "href": "https://www.zhipin.com/",
-        "title": "Boss直聘"
-      }
-    ]);
+  {
+    "href": "https://www.51job.com/",
+    "title": "前程无忧"
+  },
+  {
+    "href": "https://www.liepin.com/",
+    "title": "猎聘"
+  },
+  {
+    "href": "https://www.zhaopin.com/",
+    "title": "智联招聘"
+  },
+  {
+    "href": "https://www.zhipin.com/",
+    "title": "Boss直聘"
+  }
+]);
 
 </script>
 
 <template>
-  <a-layout style="background-color: #E9EBEE; text-align: center">
+  <a-layout style="background-color: #E9EBEE; text-align: center; min-height: 100vh">
     <a-layout-header :style="{'background-color': 'white'}">
       <a-flex justify="space-between" align="center">
         <div>好简历,伴一生</div>
-        <a-menu mode="horizontal">
-          <a-menu-item key="1">
-            <a-button type="primary">
-              <router-link :to="{name: 'setup'}">创建简历</router-link>
-            </a-button>
-          </a-menu-item>
-        </a-menu>
+        <a-space>
+          <a-button type="primary">
+            <router-link :to="{name: 'setup'}">创建简历</router-link>
+          </a-button>
+          <a-button type="dashed" danger>
+            <router-link :to="{name: 'designer'}">设计简历模板</router-link>
+          </a-button>
+        </a-space>
         <a-dropdown :trigger="['click']">
           <a class="ant-dropdown-link" @click.prevent>
             <a-avatar :size="{ xs: 24, sm: 32, md: 40, lg: 48, xl: 48, xxl: 48 }">
               <template #icon>
-                <AntDesignOutlined/>
+                <FileDoneOutlined />
               </template>
             </a-avatar>
           </a>
@@ -60,8 +61,8 @@ const jobs = reactive([
         </a-dropdown>
       </a-flex>
     </a-layout-header>
-    <a-layout-content style="min-height: 580px">
-      <a-alert message="数据保持到你的电脑本地,请放心使用!" type="success" closable show-icon />
+    <a-layout-content>
+      <a-alert message="数据保持到你的电脑本地,请放心使用!" type="success" closable show-icon/>
       <a-tabs v-model:activeKey="activeKey" centered size="large" animated>
         <a-tab-pane key="1" tab="我的简历">
           <a-row justify="center" style="margin: 8px">
@@ -114,16 +115,36 @@ const jobs = reactive([
           </a-row>
         </a-tab-pane>
         <a-tab-pane key="3" tab="招聘网站">
-         <a-row justify="center">
-           <a-col :xs="12" :sm="8" :md="2" :lg="2" :xl="2" v-for="job in jobs">
-             <a-button type="text" :href="job.href" size="large" target="_blank">{{ job.title }}</a-button>
-           </a-col>
-         </a-row>
+          <a-row justify="center">
+            <a-col :xs="12" :sm="8" :md="2" :lg="2" :xl="2" v-for="job in jobs">
+              <a-button type="text" :href="job.href" size="large" target="_blank">{{ job.title }}</a-button>
+            </a-col>
+          </a-row>
+        </a-tab-pane>
+        <a-tab-pane key="4" tab="从以下模板中构建">
+          <a-row justify="center" style="margin: 8px">
+            <a-col :xs="24" :sm="14" :md="8" :lg="8" :xl="8">
+              <a-card hoverable style="width: 240px;" key="63bfec5a-a09d-4890-94fa-e41ab20a1bd5">
+                <template #cover>
+                  <img alt="example" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"/>
+                </template>
+                <a-card-meta title="默认简历模板-1">
+                  <template #description>
+                    <a-button type="primary">
+                      <router-link
+                          :to="{name: 'setup2', params: {template_id: '63bfec5a-a09d-4890-94fa-e41ab20a1bd5'}}">开始创建
+                      </router-link>
+                    </a-button>
+                  </template>
+                </a-card-meta>
+              </a-card>
+            </a-col>
+          </a-row>
         </a-tab-pane>
       </a-tabs>
     </a-layout-content>
     <a-layout-footer>
-      <Footer />
+      <Footer/>
     </a-layout-footer>
   </a-layout>
   <a-float-button>
@@ -139,9 +160,10 @@ const jobs = reactive([
 </template>
 <style scoped>
 
-.cover-container{
+.cover-container {
   height: 220px;
 }
+
 .cover-container > * {
   width: 500%; /* 确保内容宽度填满容器 */
   height: auto; /* 确保内容高度填满容器 */

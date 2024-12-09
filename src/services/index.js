@@ -6,7 +6,7 @@ import { message } from 'ant-design-vue';
 
 //-------------------------1.创建axios实例-----------------------
 const instance=axios.create({
-baseURL: process.env.VITE_APP_BASE_URL, // 所有的请求地址前缀部分,
+baseURL: import.meta.env.VITE_APP_BASE_URL, // 所有的请求地址前缀部分,
     timeout: 5000, // 请求超时时间
     withCredentials: true, // 异步请求携带cookie
     headers: {

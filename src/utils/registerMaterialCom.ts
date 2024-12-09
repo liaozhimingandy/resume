@@ -12,7 +12,7 @@ import INTERNSHIP_EXPERIENCE_1 from '@/material/InternshipExperience/InternshipE
 import SELF_EVALUATION_1 from '@/material/SelfEvaluation/SelfEvaluation1/index.vue';
 import WORKS_DISPLAY_1 from '@/material/WorksDisplay/WorksDisplay1/index.vue';
 import RESUME_TITLE_1 from '@/material/ResumeTitle/ResumeTitle1/index.vue';
-import CUSTOM_1 from '@/material/Custom/Custom1/index.vue';
+import CUSTOM_DISPLAY from '@/material/Custom/Custom1/index.vue';
 
 // 注册所有物料组件
 const MaterialComponents = {
@@ -43,7 +43,7 @@ const MaterialComponents = {
     // 我的简历
     RESUME_TITLE_1: RESUME_TITLE_1,
     // 自定义部分
-    CUSTOM_1: CUSTOM_1,
+    CUSTOM_DISPLAY: CUSTOM_DISPLAY,
 }
 
 export default MaterialComponents;

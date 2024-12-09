@@ -5,7 +5,7 @@ import {computed} from "vue";
 import appStore from '@/stores/app';
 import {useFontSizeList} from '@/hooks/useFontSizeList';
 import ColorPickerCustom from "../components/ColorPicker/ColorPickerCustom.vue";
-import {IMATERIALITEM} from "../interface/material";
+import {IMaterial} from "../interface/IMaterial";
 // 字体大小
 const fontSizeList = useFontSizeList();
 
@@ -18,29 +18,57 @@ const fontSizeOptions = computed(() => fontSizeList.map((item,) => {
 const fontWeightList = [100, 200, 300, 400, 500, 600, 700, 800, 900].map((item,) => {
   return {"value": item, "label": item}
 });
+
+ // 改变主题色
+  const changeThemeColor = (item: { rgb: string; hex: string }) => {
+    // 改变一级标题颜色
+    resumeJsonStore.COMPONENTS.forEach((cptItem: IMaterial) => {
+      cptItem.style.themeColor = item.hex;
+    });
+    console.log('改变主题色后的COMPONENTS', resumeJsonStore.COMPONENTS);
+  };
+  // 改变一级字体大小
+  const changeFirstTitleFontSize = (value: string) => {
+    resumeJsonStore.COMPONENTS.forEach((cptItem: IMaterial) => {
+      cptItem.style.firstTitleFontSize = value;
+    });
+  };
 // 二级标题颜色改变
 const secondTitleColorChange = (item: { hex: string; rgba: string }) => {
-  resumeJsonStore.COMPONENTS.forEach((cptItem: IMATERIALITEM) => {
+  resumeJsonStore.COMPONENTS.forEach((cptItem: IMaterial) => {
     cptItem.style.titleColor = item.hex;
   });
 };
 // 正文字体颜色发生改变
 const textColorChange = (item: { hex: string; rgba: string }) => {
-  resumeJsonStore.COMPONENTS.forEach((cptItem: IMATERIALITEM) => {
+  resumeJsonStore.COMPONENTS.forEach((cptItem: IMaterial) => {
     cptItem.style.textColor = item.hex;
   });
 };
 
 // 二级标题字体粗细
 const secondTitleWeightChange = (value: number) => {
-  resumeJsonStore.COMPONENTS.forEach((cptItem: IMATERIALITEM) => {
+  resumeJsonStore.COMPONENTS.forEach((cptItem: IMaterial) => {
     cptItem.style.titleFontWeight = value;
   });
 };
+// 二级标题字体大小发生变化时
+  const secondTitleFontSizeChange = (value: string) => {
+    resumeJsonStore.COMPONENTS.forEach((cptItem: IMaterial) => {
+      cptItem.style.titleFontSize = value;
+    });
+  };
+
+  // 正文字体大小发生变化
+  const textFontSizeChange = (value: string) => {
+    resumeJsonStore.COMPONENTS.forEach((cptItem: IMaterial) => {
+      cptItem.style.titleFontSize = value;
+    });
+  };
 
 // 正文字体粗细
 const textFontWeight = (value: number) => {
-  resumeJsonStore.COMPONENTS.forEach((cptItem: IMATERIALITEM) => {
+  resumeJsonStore.COMPONENTS.forEach((cptItem: IMaterial) => {
     cptItem.style.textFontWeight = value;
   });
 };
@@ -96,15 +124,24 @@ const handleChangePLeftRight = (value: number): void => {
   <a-form style="padding: 8px">
     <a-form-item label="模块标题字体大小" name="模块标题字体大小">
       <a-select v-model:value="resumeJsonStore.GLOBAL_STYLE.firstTitleFontSize"
-                :options='fontSizeOptions'/>
+                :options='fontSizeOptions'
+      @change="changeFirstTitleFontSize"/>
     </a-form-item>
     <a-form-item label="二级标题字体大小" name="二级标题字体大小">
       <a-select v-model:value="resumeJsonStore.GLOBAL_STYLE.secondTitleFontSize"
-                :options='fontSizeOptions'/>
+                :options='fontSizeOptions'
+        @change="secondTitleFontSizeChange"/>
     </a-form-item>
     <a-form-item label="正文字体大小" name="正文字体大小">
       <a-select v-model:value="resumeJsonStore.GLOBAL_STYLE.textFontSize"
-                :options='fontSizeOptions'/>
+                :options='fontSizeOptions'
+                @change="textFontSizeChange"
+          />
+    </a-form-item>
+    <!-- 主题颜色设置 -->
+    <a-form-item label="主题颜色">
+      <ColorPickerCustom v-model="resumeJsonStore.GLOBAL_STYLE.themeColor"
+                         @change="changeThemeColor"></ColorPickerCustom>
     </a-form-item>
     <!-- 字体颜色设置 -->
     <a-form-item label="二级标题颜色" name="二级标题颜色">
@@ -125,14 +162,14 @@ const handleChangePLeftRight = (value: number): void => {
                 :options='fontWeightList' @change="textFontWeight"/>
     </a-form-item>
     <!-- 模块上下边距设置 -->
-    <a-form-item label="模块上外边距" name="模块上外边距">
+    <a-form-item label="模块外上边距" name="模块上外边距">
       <a-input-number v-model:value="resumeJsonStore.GLOBAL_STYLE.modelMarginTop"
                       max="100" min="-100" default-value="0px"
                       :formatter="value => `${value}`"
                       :parser="value => value.replace('px', '')"
                       @change="handleChange"></a-input-number>
     </a-form-item>
-    <a-form-item label="模块下外边距" name="模块下外边距">
+    <a-form-item label="模块外下边距" name="模块下外边距">
       <a-input-number v-model:value="resumeJsonStore.GLOBAL_STYLE.modelMarginBottom"
                       max="100" min="-100" default-value="0px"
                       :formatter="value => `${value}`"
@@ -140,7 +177,7 @@ const handleChangePLeftRight = (value: number): void => {
                       @change="handleChangeMBottom"></a-input-number>
     </a-form-item>
     <!-- 模块上内边距 -->
-    <a-form-item label="模块上内边距" name="模块上内边距">
+    <a-form-item label="模块内上边距" name="模块上内边距">
       <a-input-number v-model:value="resumeJsonStore.GLOBAL_STYLE.pTop"
                       max="100" min="-100" default-value="0px"
                       :formatter="value => `${value}`"
@@ -148,7 +185,7 @@ const handleChangePLeftRight = (value: number): void => {
                       @change="handleChangePTop"></a-input-number>
     </a-form-item>
     <!-- 模块下内边距 -->
-    <a-form-item label="模块下内边距" name="模块下内边距">
+    <a-form-item label="模块内下边距" name="模块下内边距">
       <a-input-number v-model:value="resumeJsonStore.GLOBAL_STYLE.pBottom"
                       max="100" min="-100" default-value="0px"
                       :formatter="value => `${value}`"
@@ -156,7 +193,7 @@ const handleChangePLeftRight = (value: number): void => {
                       @change="handleChangePBottom"></a-input-number>
     </a-form-item>
 <!--    左右内边距-->
-    <a-form-item label="左右内边距" name="左右内边距">
+    <a-form-item label="模块内左右边距" name="左右内边距">
       <a-input-number v-model:value="resumeJsonStore.GLOBAL_STYLE.pLeftRight"
                       max="100" min="-100" default-value="0px"
                       :formatter="value => `${value}`"
