@@ -9,6 +9,7 @@ import ModalAISuggest from "@/components/ModalAISuggest.vue";
 const aboutMeStore = AboutMeStore();
 const aboutMeInfo = computed(() => aboutMeStore);
 const formRef = ref(null);
+const LLM_IS_ENABLE =  computed(() => import.meta.env.VITE_APP_LLM_IS_ENABLE === 'true');
 
 // 校验规则
 const rules = {
@@ -50,8 +51,8 @@ defineExpose({
     <a-form-item label="自我描述" name="profile" has-feedback>
       <MEditor v-model:data="aboutMeInfo.profile"/>
       <a-flex justify="flex-end" style="margin-top: 10px">
-        <a-button type="link" @click="()=> open = !open" v-show="false">人工智能帮你生成</a-button>
-        <ModalAISuggest v-model:open="open" v-model:suggest="aboutMeInfo.profile" content="帮我写一份简历中自我描述部分" v-if="open"/>
+        <a-button type="link" @click="()=> open = !open" v-show="LLM_IS_ENABLE">人工智能帮你生成</a-button>
+        <ModalAISuggest v-model:open="open" v-model:suggest="aboutMeInfo.profile" content="你是一名经验丰富的简历大师,帮我写一份简历中自我描述部分" v-if="open"/>
       </a-flex>
     </a-form-item>
     <a-divider/>
@@ -59,8 +60,8 @@ defineExpose({
       <!--      <ckeditor v-if="isLayoutReady" v-model="aboutMeInfo.desc" :editor="editor" :config="config"/>-->
       <MEditor v-model:data="aboutMeInfo.desc"/>
       <a-flex justify="flex-end" style="margin-top: 10px">
-        <a-button type="link" @click="()=> open1 = !open1" v-show="false">人工智能帮你生成</a-button>
-        <ModalAISuggest v-model:open="open1" v-model:suggest="aboutMeInfo.desc" content="帮我写一份简历中关于兴趣爱好的部分" v-if="open1"/>
+        <a-button type="link" @click="()=> open1 = !open1" v-show="LLM_IS_ENABLE">人工智能帮你生成</a-button>
+        <ModalAISuggest v-model:open="open1" v-model:suggest="aboutMeInfo.desc" content="你是一名经验丰富的简历大师,帮我写一份简历中关于兴趣爱好的部分" v-if="open1"/>
       </a-flex>
     </a-form-item>
     <a-divider/>

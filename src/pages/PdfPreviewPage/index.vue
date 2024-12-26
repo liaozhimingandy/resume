@@ -18,8 +18,10 @@ const getResumeData = async () => {
 
 import custom from '@/templates/custom/index.vue';
 import IRESUMEJSON from "@/interface/iresume";
+import {generatePdf} from "@/utils/html2pdf";
+
 // 监听内容元素高度变化，绘制分割线
-const htmlContentPdf = ref<any>(null);
+const htmlContentPdf = ref(null);
 const html2Pdf = ref<any>(null); // 获取元素节点
 let observer: ResizeObserver | null = null;
 const resizeDOM = () => {
@@ -42,6 +44,10 @@ const contentHeightChange = async () => {
 const customProps = ref({
   isPreview: true
 });
+
+const exportPDFv2 = () => {
+  generatePdf(htmlContentPdf.value, 'resume-' + refreshUuid.value, false, ()=>{})
+}
 </script>
 
 <template>
@@ -49,7 +55,7 @@ const customProps = ref({
     <a-layout-header :style="{ position: 'fixed', zIndex: 1, width: '100%' }">
       <a-flex justify="center" align="center">
         <div>
-          <a-button type="primary" size="large">预览</a-button>
+          <a-button type="primary" size="large" @click="exportPDFv2">保存到本地用于打印</a-button>
         </div>
       </a-flex>
     </a-layout-header>

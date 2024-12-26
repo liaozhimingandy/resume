@@ -35,7 +35,7 @@ const jobs = reactive([
         <div>好简历,伴一生</div>
         <a-space>
           <a-button type="primary">
-            <router-link :to="{name: 'setup'}">创建简历</router-link>
+            <router-link :to="{name: 'setup2', params: {template_id: '63bfec5a-a09d-4890-94fa-e41ab20a1bd5'}}">创建简历</router-link>
           </a-button>
           <a-button type="dashed" danger>
             <router-link :to="{name: 'designer'}">设计简历模板</router-link>

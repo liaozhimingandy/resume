@@ -42,7 +42,7 @@ const left = computed(() => (Number(props.modelStyle.pLeftRight.split('px')[0]))
             <div v-show="isShow.email">{{ modelData.email }}</div>
           </a-space>
         </a-col>
-        <a-col :span="8" style="text-align: center">
+        <a-col :span="8" style="text-align: center" v-if="false">
             <a-avatar v-show="modelData.isShow.avatar" style="width: 115px; height: 115px" :src="modelData.avatar"/>
         </a-col>
       </a-row>

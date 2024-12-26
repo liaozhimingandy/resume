@@ -48,6 +48,7 @@ const getResumeData = async () => {
     instance.get(`/templates/${template_id}.json`).then((res) => {
       TEMPLATE_JSON = res.data as IRESUMEJSON;
       appStore.useResumeJsonStore.updateResumeJsonData(TEMPLATE_JSON);
+      console.info(appStore.useResumeJsonStore)
     }).catch((err) => api.error({
       message: '温馨提示',
       description: "获取模板信息失败"

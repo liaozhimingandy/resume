@@ -1,5 +1,4 @@
 <script setup>
-
 const version = __APP_VERSION__;
 </script>
 

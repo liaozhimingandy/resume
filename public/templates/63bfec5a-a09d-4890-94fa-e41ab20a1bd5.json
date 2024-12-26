@@ -1,11 +1,48 @@
 {
-    "ID": "63bfec5a-a09d-4890-94fa-e41ab20a1bd5",
+    "ID": "9e1816c1-314b-4cfe-a22b-00d9e40c5658",
     "NAME": "custom",
-    "TITLE": "模板标题",
+    "TITLE": "模板Demo",
     "LAYOUT": "classical",
     "COMPONENTS": [
         {
-            "keyId": "0f9ce7e5-3f56-4ade-9d31-2e7c55b4760d",
+            "keyId": "1800749b-14b9-4ce4-a4a8-5a005ea4d1cf",
+            "model": "CUSTOM_DISPLAY",
+            "cptName": "CUSTOM_DISPLAY",
+            "cptOptionsName": "CUSTOM_OPTIONS",
+            "cptTitle": "自定义",
+            "cptX": 0,
+            "cptY": 0,
+            "cptZ": 0,
+            "cptHeight": "50px",
+            "cptWidth": "100%",
+            "layout": "",
+            "show": true,
+            "style": {
+                "themeColor": "#027AFF",
+                "firstTitleFontSize": "20px",
+                "textColor": "#757575",
+                "textFontSize": "14px",
+                "textFontWeight": 500,
+                "titleColor": "#666666",
+                "titleFontSize": "14px",
+                "titleFontWeight": 600,
+                "backgroundColor": "#666666",
+                "mBottom": "0px",
+                "mTop": "0px",
+                "pTopBottom": "0px",
+                "pLeftRight": "0px"
+            },
+            "data": {
+                "iconfont": "icon-ziwopingjia",
+                "model": "CUSTOM_1",
+                "show": true,
+                "title": "自定义内容",
+                "name": "个人简历",
+                "abstract": "给我一个机会"
+            }
+        },
+        {
+            "keyId": "4d2fe104-2b78-4d07-b9af-7a640ea052ef",
             "model": "RESUME_TITLE",
             "cptName": "RESUME_TITLE_1",
             "cptOptionsName": "RESUME_TITLE_OPTIONS",
@@ -16,9 +53,9 @@
             "cptHeight": "100px",
             "cptWidth": "100%",
             "layout": "",
-            "show": true,
+            "show": false,
             "style": {
-                "themeColor": "#000",
+                "themeColor": "#027AFF",
                 "firstTitleFontSize": "20px",
                 "titleColor": "#121c26",
                 "titleFontSize": "30px",
@@ -26,7 +63,7 @@
                 "textColor": "#fff",
                 "textFontSize": "16px",
                 "textFontWeight": 600,
-                "backgroundColor": "#000",
+                "backgroundColor": "#027AFF",
                 "mBottom": "0px",
                 "mTop": "0px",
                 "pTopBottom": "0px",
@@ -40,7 +77,7 @@
             }
         },
         {
-            "keyId": "a595ce71-5121-4a42-8abb-738f01389f86",
+            "keyId": "a7ce2355-29dc-46c5-ba4e-b0a4be12ef39",
             "model": "BASE_INFO",
             "cptName": "BASE_INFO_1",
             "cptOptionsName": "BASE_INFO_OPTIONS",
@@ -53,20 +90,19 @@
             "layout": "",
             "show": true,
             "style": {
-                "themeColor": "#000",
+                "themeColor": "#027AFF",
                 "firstTitleFontSize": "20px",
                 "titleColor": "#121c26",
                 "titleFontSize": "30px",
                 "textFontSize": "14px",
                 "titleFontWeight": 500,
                 "textFontWeight": 500,
-                "textColor": "#967a5b",
+                "textColor": "#7c7b7b",
                 "backgroundColor": "",
                 "mBottom": "0px",
                 "mTop": "0px",
                 "pTopBottom": "0px",
-                "pLeftRight": "40px",
-                "modelMarginTop": "0px"
+                "pLeftRight": "40px"
             },
             "data": {
                 "iconfont": "icon-jibenziliao",
@@ -74,10 +110,10 @@
                 "show": true,
                 "title": "基本资料",
                 "name": "小猪课堂",
-                "age": 14,
+                "age": 25,
                 "address": "四川成都",
                 "avatar": "https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg",
-                "workService": 6,
+                "workService": 3,
                 "phoneNumber": "028-1234321",
                 "email": "12322233@qq.com",
                 "abstract": "我是一个没有感情的工作机器",
@@ -95,7 +131,7 @@
             }
         },
         {
-            "keyId": "5d6cfa0b-7d3e-4768-bcb8-2d49d269f8f2",
+            "keyId": "a751299f-4efd-46e0-a385-01908b1e38b8",
             "model": "JOB_INTENTION",
             "cptName": "JOB_INTENTION_1",
             "cptOptionsName": "JOB_INTENTION_OPTIONS",
@@ -108,7 +144,7 @@
             "layout": "",
             "show": true,
             "style": {
-                "themeColor": "#000",
+                "themeColor": "#027AFF",
                 "firstTitleFontSize": "20px",
                 "titleColor": "#121c26",
                 "titleFontSize": "30px",
@@ -142,7 +178,7 @@
             }
         },
         {
-            "keyId": "50904096-fe7a-41a5-899f-bc19f1715f36",
+            "keyId": "4df16fa9-ca47-4769-ad6a-f487d0ab468c",
             "model": "EDU_BACKGROUND",
             "cptName": "EDU_BACKGROUND_1",
             "cptOptionsName": "EDU_BACKGROUND_OPTIONS",
@@ -155,7 +191,7 @@
             "layout": "",
             "show": true,
             "style": {
-                "themeColor": "#000",
+                "themeColor": "#027AFF",
                 "firstTitleFontSize": "20px",
                 "textColor": "#757575",
                 "textFontSize": "14px",
@@ -163,7 +199,7 @@
                 "titleColor": "#666666",
                 "titleFontSize": "14px",
                 "titleFontWeight": 600,
-                "backgroundColor": "#000",
+                "backgroundColor": "#027AFF",
                 "mBottom": "0px",
                 "mTop": "0px",
                 "pTopBottom": "0px",
@@ -206,7 +242,7 @@
             }
         },
         {
-            "keyId": "00bde7a9-85c2-453d-adc5-9c6660f1522a",
+            "keyId": "13c150ca-1688-4627-a683-9dcef91276f8",
             "model": "SKILL_SPECIALTIES",
             "cptName": "SKILL_SPECIALTIES_1",
             "cptOptionsName": "SKILL_SPECIALTIES_OPTIONS",
@@ -217,9 +253,9 @@
             "cptHeight": "50px",
             "cptWidth": "100%",
             "layout": "",
-            "show": true,
+            "show": false,
             "style": {
-                "themeColor": "#000",
+                "themeColor": "#027AFF",
                 "firstTitleFontSize": "20px",
                 "textColor": "#757575",
                 "textFontSize": "14px",
@@ -227,7 +263,7 @@
                 "titleColor": "#666666",
                 "titleFontSize": "14px",
                 "titleFontWeight": 600,
-                "backgroundColor": "#000",
+                "backgroundColor": "#027AFF",
                 "mBottom": "0px",
                 "mTop": "0px",
                 "pTopBottom": "0px",
@@ -252,18 +288,18 @@
                     {
                         "skillName": "JavaScript",
                         "proficiency": "熟悉",
-                        "introduce": "熟练掌握该项技术熟练 掌握该项技术熟练掌握该项技术熟练掌握该项技术"
+                        "introduce": "熟练掌握该项技术熟练掌握该项技术熟练掌握该项技术熟练掌握该项技术"
                     },
                     {
                         "skillName": "JavaScript",
                         "proficiency": "精通",
-                        "introduce": "熟练掌 握该项技术"
+                        "introduce": "熟练掌握该项技术"
                     }
                 ]
             }
         },
         {
-            "keyId": "4aa7cde5-6716-49fa-95fc-2aa495d0c5ba",
+            "keyId": "905d2b8a-be5f-4cd3-b5bd-680ef9b43d56",
             "model": "CAMPUS_EXPERIENCE",
             "cptName": "CAMPUS_EXPERIENCE_1",
             "cptOptionsName": "CAMPUS_EXPERIENCE_OPTIONS",
@@ -276,7 +312,7 @@
             "layout": "",
             "show": false,
             "style": {
-                "themeColor": "#000",
+                "themeColor": "#027AFF",
                 "firstTitleFontSize": "20px",
                 "textColor": "#757575",
                 "textFontSize": "14px",
@@ -284,7 +320,7 @@
                 "titleColor": "#666666",
                 "titleFontSize": "14px",
                 "titleFontWeight": 600,
-                "backgroundColor": "#000",
+                "backgroundColor": "#027AFF",
                 "mBottom": "0px",
                 "mTop": "0px",
                 "pTopBottom": "0px",
@@ -293,7 +329,7 @@
             "data": {
                 "iconfont": "icon-jiatimianban_timu",
                 "model": "CAMPUS_EXPERIENCE",
-                "show": false,
+                "show": true,
                 "title": "校园经历",
                 "LIST": [
                     {
@@ -311,8 +347,8 @@
                             "2022-10"
                         ],
                         "campusBriefly": "经历简要，如社团名称",
-                        "campusDuty": "主要 职责",
-                        "campusContent": "经历经历描述经历描述经历描经历描述经历描述经历描述经历描述经历描述述经历描述经历描述经历描述经 历描述经历描述描述"
+                        "campusDuty": "主要职责",
+                        "campusContent": "经历经历描述经历描述经历描经历描述经历描述经历描述经历描述经历描述述经历描述经历描述经历描述经历描述经历描述描述"
                     }
                 ],
                 "isShow": {
@@ -324,7 +360,7 @@
             }
         },
         {
-            "keyId": "3f9e9723-519f-4167-94cd-22d85e9f5fa4",
+            "keyId": "54ec26a4-5e34-4fb7-9477-f7ce35edfe40",
             "model": "INTERNSHIP_EXPERIENCE",
             "cptName": "INTERNSHIP_EXPERIENCE_1",
             "cptOptionsName": "INTERNSHIP_EXPERIENCE_OPTIONS",
@@ -337,7 +373,7 @@
             "layout": "",
             "show": false,
             "style": {
-                "themeColor": "#000",
+                "themeColor": "#027AFF",
                 "firstTitleFontSize": "20px",
                 "textColor": "#757575",
                 "textFontSize": "14px",
@@ -345,7 +381,7 @@
                 "titleColor": "#666666",
                 "titleFontSize": "14px",
                 "titleFontWeight": 600,
-                "backgroundColor": "#000",
+                "backgroundColor": "#027AFF",
                 "mBottom": "0px",
                 "mTop": "0px",
                 "pTopBottom": "0px",
@@ -366,10 +402,10 @@
                         "posts": "前端开发工程师",
                         "jobContent": [
                             {
-                                "content": " 主要工作内容是打杂"
+                                "content": "主要工作内容是打杂"
                             },
                             {
-                                "content": "主要工作内容是打杂主要工作内容是打杂主要工作内容是打杂主要工作内容是打杂主要工作内容 是打杂"
+                                "content": "主要工作内容是打杂主要工作内容是打杂主要工作内容是打杂主要工作内容是打杂主要工作内容是打杂"
                             },
                             {
                                 "content": "主要工作内容是打杂"
@@ -382,7 +418,7 @@
                             "2022-10"
                         ],
                         "companyName": "业绩公司",
-                        "posts": "前 端开发工程师",
+                        "posts": "前端开发工程师",
                         "jobContent": [
                             {
                                 "content": "主要工作内容是打杂"
@@ -405,7 +441,7 @@
             }
         },
         {
-            "keyId": "104d677c-c98e-4747-b8b5-2bdb9c156755",
+            "keyId": "c7502257-9bde-4d2a-a032-e9dfd035b603",
             "model": "WORK_EXPERIENCE",
             "cptName": "WORK_EXPERIENCE_1",
             "cptOptionsName": "WORK_EXPERIENCE_OPTIONS",
@@ -418,7 +454,7 @@
             "layout": "",
             "show": true,
             "style": {
-                "themeColor": "#000",
+                "themeColor": "#027AFF",
                 "firstTitleFontSize": "20px",
                 "textColor": "#757575",
                 "textFontSize": "14px",
@@ -426,7 +462,7 @@
                 "titleColor": "#666666",
                 "titleFontSize": "14px",
                 "titleFontWeight": 600,
-                "backgroundColor": "#000",
+                "backgroundColor": "#027AFF",
                 "mBottom": "0px",
                 "mTop": "0px",
                 "pTopBottom": "0px",
@@ -460,7 +496,7 @@
             }
         },
         {
-            "keyId": "1e41a0d9-88db-482c-8717-190caad63874",
+            "keyId": "d2e839ff-4b6a-474c-b224-7326ad7adc83",
             "model": "PROJECT_EXPERIENCE",
             "cptName": "PROJECT_EXPERIENCE_1",
             "cptOptionsName": "PROJECT_EXPERIENCE_OPTIONS",
@@ -473,7 +509,7 @@
             "layout": "",
             "show": false,
             "style": {
-                "themeColor": "#000",
+                "themeColor": "#027AFF",
                 "firstTitleFontSize": "20px",
                 "textColor": "#757575",
                 "textFontSize": "14px",
@@ -481,7 +517,7 @@
                 "titleColor": "#666666",
                 "titleFontSize": "14px",
                 "titleFontWeight": 600,
-                "backgroundColor": "#000",
+                "backgroundColor": "#027AFF",
                 "mBottom": "0px",
                 "mTop": "0px",
                 "pTopBottom": "0px",
@@ -515,7 +551,7 @@
             }
         },
         {
-            "keyId": "40ada311-5edf-4789-b341-853c61f2c63e",
+            "keyId": "d8ec62da-4ff0-4d1f-9142-28cc82502ce7",
             "model": "AWARDS",
             "cptName": "AWARDS_1",
             "cptOptionsName": "AWARDS_OPTIONS",
@@ -528,7 +564,7 @@
             "layout": "",
             "show": false,
             "style": {
-                "themeColor": "#000",
+                "themeColor": "#027AFF",
                 "firstTitleFontSize": "20px",
                 "textColor": "#757575",
                 "textFontSize": "14px",
@@ -536,7 +572,7 @@
                 "titleColor": "#666666",
                 "titleFontSize": "14px",
                 "titleFontWeight": 600,
-                "backgroundColor": "#000",
+                "backgroundColor": "#027AFF",
                 "mBottom": "0px",
                 "mTop": "0px",
                 "pTopBottom": "0px",
@@ -562,7 +598,7 @@
             }
         },
         {
-            "keyId": "8f650770-11c4-4be6-a813-22735ecf803b",
+            "keyId": "f64bc4a6-922e-40c5-ac4d-cb66c154a634",
             "model": "HOBBIES",
             "cptName": "HOBBIES_1",
             "cptOptionsName": "HOBBIES_OPTIONS",
@@ -573,9 +609,9 @@
             "cptHeight": "50px",
             "cptWidth": "100%",
             "layout": "",
-            "show": false,
+            "show": true,
             "style": {
-                "themeColor": "#000",
+                "themeColor": "#027AFF",
                 "firstTitleFontSize": "20px",
                 "textColor": "#757575",
                 "textFontSize": "14px",
@@ -583,7 +619,7 @@
                 "titleColor": "#666666",
                 "titleFontSize": "14px",
                 "titleFontWeight": 600,
-                "backgroundColor": "#000",
+                "backgroundColor": "#027AFF",
                 "mBottom": "0px",
                 "mTop": "0px",
                 "pTopBottom": "0px",
@@ -605,7 +641,7 @@
             }
         },
         {
-            "keyId": "192b2494-4419-4404-acc5-9d2d1627a698",
+            "keyId": "c7d6086e-bc45-4258-98ff-55986e6b650a",
             "model": "SELF_EVALUATION",
             "cptName": "SELF_EVALUATION_1",
             "cptOptionsName": "SELF_EVALUATION_OPTIONS",
@@ -618,7 +654,7 @@
             "layout": "",
             "show": true,
             "style": {
-                "themeColor": "#000",
+                "themeColor": "#027AFF",
                 "firstTitleFontSize": "20px",
                 "textColor": "#757575",
                 "textFontSize": "14px",
@@ -626,7 +662,7 @@
                 "titleColor": "#666666",
                 "titleFontSize": "14px",
                 "titleFontWeight": 600,
-                "backgroundColor": "#000",
+                "backgroundColor": "#027AFF",
                 "mBottom": "0px",
                 "mTop": "0px",
                 "pTopBottom": "0px",
@@ -641,7 +677,7 @@
             }
         },
         {
-            "keyId": "de218583-7635-4cad-bd41-ed28c6ac34d7",
+            "keyId": "8d22d6d8-241a-4f3c-bd36-0b9c434984ae",
             "model": "WORKS_DISPLAY",
             "cptName": "WORKS_DISPLAY_1",
             "cptOptionsName": "WORKS_DISPLAY_OPTIONS",
@@ -654,7 +690,7 @@
             "layout": "",
             "show": false,
             "style": {
-                "themeColor": "#000",
+                "themeColor": "#027AFF",
                 "firstTitleFontSize": "20px",
                 "textColor": "#757575",
                 "textFontSize": "14px",
@@ -662,8 +698,8 @@
                 "titleColor": "#666666",
                 "titleFontSize": "14px",
                 "titleFontWeight": 600,
-                "backgroundColor": "#000",
-                "mBottom": "35px",
+                "backgroundColor": "#027AFF",
+                "mBottom": "0px",
                 "mTop": "0px",
                 "pTopBottom": "0",
                 "pLeftRight": "40px"

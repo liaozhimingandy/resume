@@ -70,22 +70,28 @@ const handleItemClick = (item) => {
   suggest.value += item;
   // 在此可以处理点击后的逻辑，比如展示 item 内容或进行其他操作
 };
+// 通过 import.meta.env 读取环境变量
+const token = ref(import.meta.env.VITE_APP_MOONSHOT_LLM_SK);
 
 onMounted(() => {
   //  请求的参数
   const data = {
-    "messages": [{
-      "role": "user",
-      "content": props.content
-    }],
-    "temperature": 0.95,
-    "top_p": 0.7,
-    "penalty_score": 1,
-    "collapsed": true
-  }
+        "model": "moonshot-v1-8k",
+        "messages": [
+            {"role": "user", "content": props.content}
+        ],
+        "temperature": 0.3
+   }
 
-  axios.post(API_ENDPOINTS.BD_MODEL_URL, data).then(response => {
-    items.push(`<p>${response.data.result}</p>`);
+  const headers = {
+    'Authorization': `Bearer ${token.value}`,  // 添加 Authorization 头
+    'Content-Type': 'application/json'    // 设置 Content-Type
+  };
+  console.log(headers);
+  axios.post(API_ENDPOINTS.MOONSHOT_LLM_URL, data, {
+          headers: headers
+        }).then(response => {
+    items.push(`<p>${response.data.choices[0].message.content}</p>`);
     spinning.value = false;
   })
 });
