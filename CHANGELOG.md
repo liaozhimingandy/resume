@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.3.1](https://github.com/liaozhimingandy/resume/compare/v3.3.0...v3.3.1) (2024-12-26)
+
+
+### Bug Fixes
+
+* **core:** 修复api失效问题 ([6062b2a](https://github.com/liaozhimingandy/resume/commit/6062b2adbe537be28c45f039b5518cabb6f5997b))
+
 ## [3.3.0](https://github.com/liaozhimingandy/resume/compare/v3.2.0...v3.3.0) (2024-12-26)
 
 
